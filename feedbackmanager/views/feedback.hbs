@@ -1,20 +1,17 @@
 <h1>Anonymous Speech Feedback System</h1>
-<h3>To Receive Anonymous Feedback for your speech, input your phone number</h3>
+<h3>To Send Your Anonymous Feedback</h3>
+<h3>input your feedback below</h3>
 <div>
+  <div class="form-group" contenteditable="true" onKeyUp="state.feedback = this.innerHTML"></div>
   <div class="form-group">
-    <label for="phoneNumber">Phone Number:</label>
-    <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="onPhoneNumberInput(this)">
-  </div>
-  <div class="form-group">
-    <button type="button" class="btn btn-primary" onClick="getLink()">Get Feedback Link</button>
+    <button type="button" class="btn btn-primary" onClick="sendFeedback()">Get Feedback Link</button>
   </div>
 </div>
 <script>
   var state = {};
-  function onPhoneNumberInput(input) { state.phoneNumber = input.value; }
   async function req(params) {
     const url = 'http://localhost:3000'
-    const response = await fetch(url, {
+    const response = await fetch(url + params.endpoint, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -26,10 +23,13 @@
     });
     return response.json(); // parses JSON response into native JavaScript objects
   }
-  async function getLink() {
+  async function sendFeedback() {
     const res = await res({
-      data: { phoneNumber: this.state.phoneNumber },
-      endpoint: '/getLink'
+      data: {
+        feedback: this.state.feedback,
+        token: new URLSearchParams(window.location.href).get('token')
+      },
+      endpoint: '/sendFeedback'
     });
     console.log(res);
   }
