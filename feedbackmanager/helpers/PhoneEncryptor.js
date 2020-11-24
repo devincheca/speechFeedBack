@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const algorithm = 'aes-192-cbc';
 const password = '6826691700';
 
-export default class PhoneEncryptor {
+class PhoneEncryptor {
   constructor() {
     this.phoneNumber = '';
     this.encryptedNumber = '';
@@ -27,3 +27,4 @@ export default class PhoneEncryptor {
   }
 }
 
+module.exports = PhoneEncryptor;

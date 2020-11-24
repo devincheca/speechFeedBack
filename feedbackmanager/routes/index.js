@@ -15,6 +15,7 @@ router.get('/feedback/:token', function(req, res, next) {
 
 router.post('/getLink', (req, res, next) => {
   const encryptor = new PhoneEncryptor();
+  encryptor.phoneNumber = req.body.phoneNumber;
   encryptor.encryptNumber();
   res.json({ token: encryptor.encryptedNumber });
 });
