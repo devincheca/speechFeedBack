@@ -2,12 +2,12 @@ const crypto = require('crypto');
 const algorithm = 'aes-192-cbc';
 const password = '6826691700';
 
-export default class PhoneEncryptor {
+export default class PhoneDecryptor {
   constructor() {
     this.phoneNumber = '';
     this.encryptedNumber = '';
   }
-  encryptNumber() {
+  decryptNumber() {
     crypto.scrypt(password, 'salt', 24, (err, key) => {
       if (err) throw err;
       crypto.randomFill(new Uint8Array(16), (err, iv) => {
@@ -21,7 +21,7 @@ export default class PhoneEncryptor {
           key, iv, encrypted
         }
         */
-        return encrypted;
+        this.encryptedNumber;
       });
     });
   }

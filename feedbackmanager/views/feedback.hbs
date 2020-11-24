@@ -1,0 +1,36 @@
+<h1>Anonymous Speech Feedback System</h1>
+<h3>To Receive Anonymous Feedback for your speech, input your phone number</h3>
+<div>
+  <div class="form-group">
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="onPhoneNumberInput(this)">
+  </div>
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" onClick="getLink()">Get Feedback Link</button>
+  </div>
+</div>
+<script>
+  var state = {};
+  function onPhoneNumberInput(input) { state.phoneNumber = input.value; }
+  async function req(params) {
+    const url = 'http://localhost:3000'
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: { 'Content-Type': 'application/json' },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(params.data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+  async function getLink() {
+    const res = await res({
+      data: { phoneNumber: this.state.phoneNumber },
+      endpoint: '/getLink'
+    });
+    console.log(res);
+  }
+</script>
