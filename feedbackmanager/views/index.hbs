@@ -1,6 +1,11 @@
-<title>Anonymous Speech Feedback System</title>
-<h1></h1>
-<p>Welcome to {{title}}</p>
+<h1>Anonymous Speech Feedback System</h1>
+<h3>To Receive Anonymous Feedback for your speech, input your phone number</h3>
+<div>
+  <div class="form-group">
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="number" class="form-control" id="phoneNumber">
+  </div>
+</div>
 <script>
   async function req(params) {
     const url = 'http://localhost:3000'
