@@ -16,7 +16,7 @@ class PhoneEncryptor {
     try {
       crypto.scrypt(password, 'salt', 24, (err, key) => {
         if (err) throw err;
-        crypto.randomFill(new Uint8Array(16), (err, iv) => {
+        crypto.randomFill(new Uint8Array(16), async (err, iv) => {
           if (err) throw err;
           const cipher = crypto.createCipheriv(algorithm, key, iv);
           let encrypted = cipher.update(this.phoneNumber, 'utf8', 'hex');
