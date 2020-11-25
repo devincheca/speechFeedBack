@@ -27,7 +27,7 @@
     return response.json(); // parses JSON response into native JavaScript objects
   }
   async function getLink() {
-    const res = await res({
+    const res = await req({
       data: { phoneNumber: this.state.phoneNumber },
       endpoint: '/getLink'
     });

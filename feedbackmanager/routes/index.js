@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
+/*
 const PhoneEncryptor = require('../helpers/PhoneEncryptor');
 const PhoneDecryptor = require('../helpers/PhoneDecryptor');
 const SmsMessanger = require('../helpers/SmsMessanger');
+*/
+const { PhoneEncryptor, PhoneDecryptor, SmsMessanger } = require('../helpers/helpers');
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -16,8 +19,11 @@ router.get('/feedback/:token', function(req, res, next) {
 router.post('/getLink', (req, res, next) => {
   const encryptor = new PhoneEncryptor();
   encryptor.phoneNumber = req.body.phoneNumber;
+  encryptor.callback = (encryptedNumber) => {
+    console.log('here the phone encrypted', encryptedNumber);
+    res.json({ token: encryptedNumber });
+  };
   encryptor.encryptNumber();
-  res.json({ token: encryptor.encryptedNumber });
 });
 
 router.post('/sendFeedback', (req, res, next) => {

@@ -4,26 +4,31 @@ const password = '6826691700';
 
 class PhoneEncryptor {
   constructor() {
-    this.phoneNumber = '';
+    this.callback = (encryptedNumber) => { return encryptedNumber; };
     this.encryptedNumber = '';
+    this.phoneNumber = '';
   }
   encryptNumber() {
-    crypto.scrypt(password, 'salt', 24, (err, key) => {
-      if (err) throw err;
-      crypto.randomFill(new Uint8Array(16), (err, iv) => {
+    try {
+      crypto.scrypt(password, 'salt', 24, (err, key) => {
         if (err) throw err;
-        const cipher = crypto.createCipheriv(algorithm, key, iv);
-        let encrypted = cipher.update(this.phoneNumber, 'utf8', 'hex');
-        encrypted += cipher.final('hex');
-        // save to DB here
-        /*
-        {
-          key, iv, encrypted
-        }
-        */
-        return encrypted;
+        crypto.randomFill(new Uint8Array(16), (err, iv) => {
+          if (err) throw err;
+          const cipher = crypto.createCipheriv(algorithm, key, iv);
+          let encrypted = cipher.update(this.phoneNumber, 'utf8', 'hex');
+          encrypted += cipher.final('hex');
+          // save to DB here
+          /*
+          {
+            key, iv, encrypted
+          }
+          */
+          this.callback(encrypted);
+          this.encryptedNumber = encrypted;
+        });
       });
-    });
+    }
+    catch(error) { console.trace(error); }
   }
 }
 
