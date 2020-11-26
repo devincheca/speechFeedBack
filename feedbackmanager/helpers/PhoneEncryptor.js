@@ -23,9 +23,10 @@ class PhoneEncryptor {
           encrypted += cipher.final('hex');
           const params = {
             Item: {
+              'tm-anon-links_id': { S: key.toString() },
               'key': { B: key },
-              'iv': { SS: iv.map(intValue => intValue.toString()) },
-              'phoneNumber': { S: encrypted }
+              'iv': { B: Buffer.from(iv) },
+              'phoneNumber': { S: encrypted },
             },
             TableName: 'tm-anon-links'
           };

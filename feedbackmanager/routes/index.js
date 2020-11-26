@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 const { LinkChecker, PhoneEncryptor, PhoneDecryptor, SmsMessanger } = require('../helpers/helpers');
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/feedback/:token', function(req, res, next) {
+router.get('/feedback/:token', (req, res, next) => {
   console.log(req.params.token);
   res.render('feedback');
 });
