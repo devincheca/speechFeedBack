@@ -1,3 +1,7 @@
+const AWS = require('aws-sdk');
+AWS.config.update({region:'us-east-1'});
+const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+
 const crypto = require('crypto');
 const algorithm = 'aes-192-cbc';
 const password = '6826691700';
