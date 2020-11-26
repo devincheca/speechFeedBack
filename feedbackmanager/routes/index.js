@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { PhoneEncryptor, PhoneDecryptor, SmsMessanger } = require('../helpers/helpers');
+const { LinkChecker, PhoneEncryptor, PhoneDecryptor, SmsMessanger } = require('../helpers/helpers');
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -18,6 +18,13 @@ router.post('/getLink', (req, res, next) => {
     res.json({ token: encryptedNumber });
   };
   encryptor.encryptNumber();
+});
+
+router.post('/checkLink', async (req, res, next) => {
+  const checker = new LinkChecker();
+  checker.token = req.body.token;
+  const isValid = await checker.checkToken();
+  res.json({ isValid });
 });
 
 router.post('/sendFeedback', (req, res, next) => {
