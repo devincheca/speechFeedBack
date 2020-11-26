@@ -4,12 +4,14 @@
 <div>
   <div class="form-group">
     <label for="comment">Feedback:</label>
-    <textarea class="form-control" rows="5" id="comment" onKeyUp="state.feedback = this.innerHTML"></textarea>
+    <textarea class="form-control" rows="5" id="comment" onKeyUp="state.feedback = this.value"></textarea>
   </div>
   <div class="form-group">
     <button type="button" class="btn btn-primary" onClick="sendFeedback()">Send Feedback</button>
   </div>
 </div>
+<div id="successDiv" style="color: green;"></div>
+<div id="failDiv" style="color: red;"></div>
 <div style="display: none;" id="tokenDiv">{{token}}</div>
 <script>
   var state = {};
@@ -39,6 +41,10 @@
       endpoint: '/sendFeedback'
     });
     console.log(res);
-    // need to provide a success message for this to work
+    if (res.isSent) {
+      document.getElementById('successDiv').innerHTML = 'Your feedback was successfully sent';
+    } else {
+      document.getElementById('failDiv').innerHTML = 'Oops. Something went wrong. Refresh the page and try again.';
+    }
   }
 </script>

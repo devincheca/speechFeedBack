@@ -28,11 +28,13 @@ router.post('/checkLink', async (req, res, next) => {
 
 router.post('/sendFeedback', (req, res, next) => {
   const decryptor = new PhoneDecryptor();
+  decryptor.encryptedNumber = req.body.token;
   decryptor.decryptNumber();
   const messanger = new SmsMessanger();
   messanger.phoneNumber = decryptor.phoneNumber;
-  messanger.send();
-  res.json({ isSent: messanger.isSent });
+  messanger.feedback = req.body.feedback;
+  const isSent = await messanger.send();
+  res.json({ isSent });
 });
 
 module.exports = router;
