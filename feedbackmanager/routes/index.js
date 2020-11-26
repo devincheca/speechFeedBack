@@ -26,10 +26,11 @@ router.post('/checkLink', async (req, res, next) => {
   res.json({ isValid });
 });
 
-router.post('/sendFeedback', (req, res, next) => {
+router.post('/sendFeedback', async (req, res, next) => {
   const decryptor = new PhoneDecryptor();
   decryptor.encryptedNumber = req.body.token;
-  decryptor.decryptNumber();
+  const phoneNumber = await decryptor.decryptNumber();
+  console.log('this should be decrypted', decryptor.phoneNumber);
   const messanger = new SmsMessanger();
   messanger.phoneNumber = decryptor.phoneNumber;
   messanger.feedback = req.body.feedback;
