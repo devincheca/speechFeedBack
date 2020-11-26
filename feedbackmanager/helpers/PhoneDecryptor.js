@@ -14,11 +14,11 @@ class PhoneDecryptor {
   }
   async decryptNumber() {
     try {
-      console.log(this.res);
-      // const iv = new Uint8Array(res.iv);
-      // const iv = Buffer.alloc(16, 0); // Initialization vector.
-      const decipher = crypto.createDecipheriv(algorithm, res.key, res.iv);
-      // Encrypted using same algorithm, key and iv.
+      const dbItem = await this.getItemFromDB();
+      if (!dbItem) {
+        return '';
+      }
+      const decipher = crypto.createDecipheriv(algorithm, this.res.Item.key.B, this.res.Item.iv.B);
       let decrypted = decipher.update(this.encryptedNumber, 'hex', 'utf8');
       decrypted += decipher.final('utf8');
       this.phoneNumber = decrypted;
@@ -27,13 +27,18 @@ class PhoneDecryptor {
     catch(error) { console.trace(error); }
   }
   async getItemFromDB() {
-    const params = {
-      Key: {
-        'tm-anon-links_id': { S: this.encryptedNumber },
-      },
-      TableName: 'tm-anon-links'
-    };
-    this.res = await dynamodb.getItem(params).promise();
+    try {
+      const params = {
+        Key: {
+          'tm-anon-links_id': { S: this.encryptedNumber },
+        },
+        TableName: 'tm-anon-links'
+      };
+      this.res = await dynamodb.getItem(params).promise();
+      return this.res;
+    }
+    catch(error) { console.trace(error); }
   }
 }
+
 module.exports = PhoneDecryptor;
