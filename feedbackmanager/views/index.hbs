@@ -5,9 +5,10 @@
   <div class="form-group">
     <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="onPhoneNumberInput(this)">
   </div>
-  <div class="form-group">
+  <div class="form-group" id="feedbackButtonDiv">
     <button type="button" class="btn btn-danger" onClick="getLink()">Get Feedback Link</button>
   </div>
+  <div class="form-group" id="linkDiv"></div>
 </div>
 <script>
   var state = {};
@@ -31,8 +32,8 @@
       data: { phoneNumber: this.state.phoneNumber },
       endpoint: '/getLink'
     });
-    console.log(res);
-    // show the link in the dom here
-    // add the copy paste stuff later
+    document.getElementById('feedbackButtonDiv').style.display = 'none';
+    document.getElementById('linkDiv').innerHTML = 'http://localhost:3000/feedback/' + res.token;
+    // document.getElementById('linkDiv').innerHTML = 'http://ti-manager.com/feedback/' + res.token;
   }
 </script>

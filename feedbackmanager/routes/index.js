@@ -7,8 +7,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/feedback/:token', (req, res, next) => {
-  console.log(req.params.token);
-  res.render('feedback');
+  res.render('feedback', { token: req.params.token });
 });
 
 router.post('/getLink', (req, res, next) => {
