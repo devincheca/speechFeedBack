@@ -16,11 +16,11 @@ class SmsMessanger {
       to: '+1' + this.phoneNumber
     });
     if (!sentMessage.errorMessage) {
-      this.isSent = false;
-      return false;
+      this.isSent = true;
+      return true;
     }
-    this.isSent = true;
-    return true;
+    this.isSent = false;
+    return false;
   }
 }
 
