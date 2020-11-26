@@ -27,6 +27,7 @@ class PhoneEncryptor {
               'key': { B: key },
               'iv': { B: Buffer.from(iv) },
               'phoneNumber': { S: encrypted },
+              'timeStamp': { N: (Math.floor(Date.now() / 1000) + (24*60*60)).toString() }
             },
             TableName: 'tm-anon-links'
           };
