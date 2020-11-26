@@ -23,7 +23,7 @@ class PhoneEncryptor {
           encrypted += cipher.final('hex');
           const params = {
             Item: {
-              'tm-anon-links_id': { S: key.toString() },
+              'tm-anon-links_id': { S: encrypted },
               'key': { B: key },
               'iv': { B: Buffer.from(iv) },
               'phoneNumber': { S: encrypted },

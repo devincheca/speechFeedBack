@@ -33,7 +33,7 @@
     return response.json(); // parses JSON response into native JavaScript objects
   }
   async function sendFeedback() {
-    const res = await res({
+    const res = await req({
       data: {
         feedback: this.state.feedback,
         token: getToken()
