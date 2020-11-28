@@ -1,12 +1,10 @@
-<h1>Anonymous Speech Feedback System</h1>
-<h3>To Send Your Anonymous Feedback</h3>
-<h3>input your feedback below</h3>
+<div class="inputPhoneHeader">To send your anonymous feedback input your feedback below</div>
 <div>
   <div class="form-group">
     <label for="comment">Feedback:</label>
     <textarea class="form-control" rows="5" id="comment" onKeyUp="state.feedback = this.value"></textarea>
   </div>
-  <div class="form-group">
+  <div class="form-group text-right">
     <button type="button" class="btn btn-primary" onClick="sendFeedback()">Send Feedback</button>
   </div>
 </div>
