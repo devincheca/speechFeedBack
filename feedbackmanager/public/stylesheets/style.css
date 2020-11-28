@@ -1,9 +1,29 @@
 body {
-  padding: 50px;
+  margin: auto;
+  margin-top: 1em;
+  max-width: 475px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
 a {
   color: #00B7FF;
 }
-:root { filter: invert(100%); }
+#errorDiv {
+  color: red;
+}
+.topBarDiv {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25em;
+  margin: 1em 0 2em 0;
+  padding: 0 1em 0 1em;
+}
+.inputPhoneHeader {
+  text-align: center;
+  padding: 0 2em 0 2em;
+  margin: 2em 0 2em 0;
+}
+.card {
+  padding: 1em;
+  margin-top: 5em;
+}
