@@ -28,7 +28,9 @@ function toggleLoaderButton() {
   }
 }
 function copyToClipboard(text) {
+  let isCopied = true;
   if (window.clipboardData && window.clipboardData.setData) {
+    updateCopyStatus();
     return clipboardData.setData("Text", text);
   }
   else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
@@ -41,13 +43,17 @@ function copyToClipboard(text) {
       return document.execCommand("copy");  // Security exception may be thrown by some browsers.
     }
     catch (ex) {
+      isCopied = false;
       console.warn("Copy to clipboard failed.", ex);
       return false;
     }
     finally {
+      if (isCopied) { updateCopyStatus(); }
       document.body.removeChild(textarea);
     }
   }
+}
+function updateCopyStatus() {
   const copyStatus = document.getElementById('copyStatus');
   copyStatus.innerHTML = 'Copied!';
   setTimeout(() => { copyStatus.innerHTML = ''; }, 4000);
