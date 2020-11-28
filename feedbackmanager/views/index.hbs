@@ -10,7 +10,19 @@
       Loading..
     </button> 
   </div>
-  <div class="form-group" id="linkDiv"></div>
+  <div class="copyPasteGroup">
+    <div class="form-group" id="linkDiv" style="display: none;">
+      <input type="text" disabled class="form-control" id="linkInput">
+    </div>
+    <div id="copyStatus"></div>
+    <div class="form-group text-right" id="copyButtonDiv" style="display: none;">
+      <button type="button" class="btn btn-primary" onClick="copyToClipboard()">
+        <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+          📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
+        </span>
+      </button>
+    </div>
+  </div>
 </div>
 <div id="successDiv" style="color: green;"></div>
 <div id="failDiv" style="color: red;"></div>
