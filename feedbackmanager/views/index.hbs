@@ -4,7 +4,11 @@
     <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value">
   </div>
   <div class="form-group text-right" id="feedbackButtonDiv">
-    <button type="button" class="btn btn-primary" onClick="getLink()">Get Feedback Link</button>
+    <button type="button" class="btn btn-primary" onClick="getLink()" id="feedbackButton">Get Feedback Link</button>
+    <button class="btn btn-primary" disabled style="display: none;" id="loaderButton">
+      <span class="spinner-border spinner-border-sm"></span>
+      Loading..
+    </button> 
   </div>
   <div class="form-group" id="linkDiv"></div>
 </div>

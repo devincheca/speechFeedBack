@@ -5,7 +5,11 @@
     <textarea class="form-control" rows="5" id="comment" onKeyUp="state.feedback = this.value"></textarea>
   </div>
   <div class="form-group text-right">
-    <button type="button" class="btn btn-primary" onClick="sendFeedback()">Send Feedback</button>
+    <button type="button" class="btn btn-primary" onClick="sendFeedback()" id="feedbackButton">Send Feedback</button>
+    <button class="btn btn-primary" disabled style="display: none;" id="loaderButton">
+      <span class="spinner-border spinner-border-sm"></span>
+      Loading..
+    </button> 
   </div>
 </div>
 <div id="successDiv" style="color: green;"></div>
