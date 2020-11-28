@@ -1,21 +1,32 @@
-<h1>Anonymous Speech Feedback System</h1>
-<h3>To Receive Anonymous Feedback for your speech,</h3>
-<h3>input your phone number</h3>
+<div class="topBarDiv">
+  <div>
+    <img src="https://localbz.co/Dreambuilders/logo.png">
+  </div>
+  <div>Anonymous Speech Feedback System</div>
+</div>
+<div>input your phone number to receive anonymous feedback for your speech</div>
 <div>
   <div class="form-group">
-    <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="onPhoneNumberInput(this)">
+    <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value">
   </div>
   <div class="form-group" id="feedbackButtonDiv">
-    <button type="button" class="btn btn-danger" onClick="getLink()">Get Feedback Link</button>
+    <button type="button" class="btn btn-primary" onClick="getLink()">Get Feedback Link</button>
   </div>
   <div class="form-group" id="linkDiv"></div>
+  <div class="form-group" id="errorDiv" style="color: red;"></div>
 </div>
 <script>
-  const url = 'https://ti-manager.com';
+  (function initDomain() {
+    if (window.location.href.toString().includes('localhost')) {
+        window.localStorage.domain = 'http://localhost:3000';
+    } else {
+        window.localStorage.domain = 'https://ti-manager.com';
+    }
+  }())
   var state = {};
-  function onPhoneNumberInput(input) { state.phoneNumber = input.value; }
   async function req(params) {
-    const response = await fetch(url + params.endpoint, {
+    if (!checkInput()) { return; }
+    const response = await fetch(window.localStorage.domain + params.endpoint, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
@@ -27,12 +38,22 @@
     });
     return response.json();
   }
+  function checkInput() {
+    if (!this.state.phoneNumber) {
+      errorMessage('Input a phone number above to receive feedback');
+      return false;
+    }
+    return true;
+  }
+  function errorMessage(message) {
+    document.getElementById('errorDiv').innerHTML = message;
+  }
   async function getLink() {
     const res = await req({
       data: { phoneNumber: this.state.phoneNumber },
       endpoint: '/getLink'
     });
     document.getElementById('feedbackButtonDiv').style.display = 'none';
-    document.getElementById('linkDiv').innerHTML = url + '/feedback/' + res.token;
+    document.getElementById('linkDiv').innerHTML = window.localStorage.domain + '/feedback/' + res.token;
   }
 </script>
