@@ -27,3 +27,7 @@ a {
   padding: 1em;
   margin-top: 5em;
 }
+.copyPasteGroup {
+  display: flex;
+  justify-content: space-around;
+}

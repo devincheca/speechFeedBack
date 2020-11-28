@@ -5,63 +5,14 @@
     <textarea class="form-control" rows="5" id="comment" onKeyUp="state.feedback = this.value"></textarea>
   </div>
   <div class="form-group text-right">
-    <button type="button" class="btn btn-primary" onClick="sendFeedback()">Send Feedback</button>
+    <button type="button" class="btn btn-primary" onClick="sendFeedback()" id="feedbackButton">Send Feedback</button>
+    <button class="btn btn-primary" disabled style="display: none;" id="loaderButton">
+      <span class="spinner-border spinner-border-sm"></span>
+      Loading..
+    </button> 
   </div>
 </div>
 <div id="successDiv" style="color: green;"></div>
 <div id="failDiv" style="color: red;"></div>
 <div style="display: none;" id="tokenDiv">{{token}}</div>
-<script>
-  (function initDomain() {
-    if (window.location.href.toString().includes('localhost')) {
-        window.localStorage.domain = 'http://localhost:3000';
-    } else {
-        window.localStorage.domain = 'https://ti-manager.com';
-    }
-  }())
-  var state = {};
-  function getToken() {
-    return document.getElementById('tokenDiv').innerHTML.toString();
-  }
-  async function req(params) {
-    const response = await fetch(window.localStorage.domain + params.endpoint, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(params.data)
-    });
-    return response.json();
-  }
-  async function sendFeedback() {
-    if (!checkFeedback()) { return; }
-    const res = await req({
-      data: {
-        feedback: this.state.feedback,
-        token: getToken()
-      },
-      endpoint: '/sendFeedback'
-    });
-    if (res.isSent) {
-      successMessage('Your feedback was successfully sent');
-    } else {
-      errorMessage('Oops. Something went wrong. Refresh the page and try again.');
-    }
-  }
-  function errorMessage(message) {
-    document.getElementById('failDiv').innerHTML = message;
-  }
-  function successMessage(message) {
-    document.getElementById('successDiv').innerHTML = message;
-  }
-  function checkFeedback() {
-    if (!this.state.feedback) {
-      errorMessage('Please enter some feedback for the speaker.');
-      return false;
-    }
-    return true;
-  }
-</script>
+<script src='/hbsJs/feedback.js'></script>

@@ -4,50 +4,26 @@
     <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value">
   </div>
   <div class="form-group text-right" id="feedbackButtonDiv">
-    <button type="button" class="btn btn-primary" onClick="getLink()">Get Feedback Link</button>
+    <button type="button" class="btn btn-primary" onClick="getLink()" id="feedbackButton">Get Feedback Link</button>
+    <button class="btn btn-primary" disabled style="display: none;" id="loaderButton">
+      <span class="spinner-border spinner-border-sm"></span>
+      Loading..
+    </button> 
   </div>
-  <div class="form-group" id="linkDiv"></div>
-  <div class="form-group" id="errorDiv" style="color: red;"></div>
+  <div class="copyPasteGroup">
+    <div class="form-group" id="linkDiv" style="display: none;">
+      <input type="text" disabled class="form-control" id="linkInput">
+    </div>
+    <div id="copyStatus"></div>
+    <div class="form-group text-right" id="copyButtonDiv" style="display: none;">
+      <button type="button" class="btn btn-primary" onClick="copyToClipboard()">
+        <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+          📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
+        </span>
+      </button>
+    </div>
+  </div>
 </div>
-<script>
-  (function initDomain() {
-    if (window.location.href.toString().includes('localhost')) {
-        window.localStorage.domain = 'http://localhost:3000';
-    } else {
-        window.localStorage.domain = 'https://ti-manager.com';
-    }
-  }())
-  var state = {};
-  async function req(params) {
-    if (!checkInput()) { return; }
-    const response = await fetch(window.localStorage.domain + params.endpoint, {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(params.data)
-    });
-    return response.json();
-  }
-  function checkInput() {
-    if (!this.state.phoneNumber) {
-      errorMessage('Input a phone number above to receive feedback');
-      return false;
-    }
-    return true;
-  }
-  function errorMessage(message) {
-    document.getElementById('errorDiv').innerHTML = message;
-  }
-  async function getLink() {
-    const res = await req({
-      data: { phoneNumber: this.state.phoneNumber },
-      endpoint: '/getLink'
-    });
-    document.getElementById('feedbackButtonDiv').style.display = 'none';
-    document.getElementById('linkDiv').innerHTML = window.localStorage.domain + '/feedback/' + res.token;
-  }
-</script>
+<div id="successDiv" style="color: green;"></div>
+<div id="failDiv" style="color: red;"></div>
+<script src='/hbsJs/index.js'></script>
