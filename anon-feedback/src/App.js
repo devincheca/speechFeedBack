@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 // import Request from './helpers/request.js';
 
 /*
@@ -14,7 +14,8 @@ async function tryNetlifyFunc() {
 
 function App() {
   return (
-    <div className="App">
+    <div className="">
+      <h1>test</h1>
     </div>
   );
 }
