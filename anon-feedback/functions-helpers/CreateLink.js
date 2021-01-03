@@ -1,8 +1,13 @@
 exports.handler = async (event, context) => {
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      res: "Hello, World",
+    body: {
+      stuff: 'hello',
+    },
+    /*
+    JSON.stringify({
+      stuff: "Hello, World",
     }),
+    */
   };
 };

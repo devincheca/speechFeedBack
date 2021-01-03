@@ -6,9 +6,14 @@ export default class Request {
   async send() {
     if (this.endpoint === '') { throw new Error('req.endpoint must be specified'); }
     const res = await fetch('/api/' + this.endpoint, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
       method: 'POST',
       body: JSON.stringify(this.data),
     });
-    return res.json();
+    console.log(res);
+    console.log(await res.json());
+    return await res.json();
   }
 }
