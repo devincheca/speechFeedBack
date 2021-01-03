@@ -16,7 +16,6 @@ async function tryNetlifyFunc() {
 function App() {
   return (
     <div className="App">
-      <button onClick={() => { console.log('just click') }}>Click Me</button>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
