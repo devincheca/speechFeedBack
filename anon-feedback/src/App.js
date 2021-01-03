@@ -15,7 +15,7 @@ async function tryNetlifyFunc() {
 function App() {
   return (
     <div className="">
-      <h1>test</h1>
+      <button className="btn btn-primary">test</button>
     </div>
   );
 }
