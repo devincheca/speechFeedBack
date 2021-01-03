@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import Request from './helpers/request.js';
+// import Request from './helpers/request.js';
 
+/*
 async function tryNetlifyFunc() {
   const req = new Request();
   req.endpoint = 'feedback';
@@ -9,13 +10,13 @@ async function tryNetlifyFunc() {
     stuff: 'blank',
   };
   const res = await req.send();
-  console.log('log res here: ', res);
 }
+*/
 
 function App() {
   return (
     <div className="App">
-      <button onClick={() => { tryNetlifyFunc() }}>Click Me</button>
+      <button onClick={() => { console.log('just click') }}>Click Me</button>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
