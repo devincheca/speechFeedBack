@@ -1,4 +1,4 @@
 const CreateLink = require('./CreateLink.js');
-export default {
+module.exports = {
   CreateLink,
-}
+};
