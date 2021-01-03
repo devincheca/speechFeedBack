@@ -1,7 +1,10 @@
+
 function MainCard() {
   return (
     <div className="">
-      from main card
+      <p className="">
+        from main card
+      </p>
     </div>
   );
 }
