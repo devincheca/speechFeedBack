@@ -1,9 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
 
+async function req(params) {
+  return await fetch('/api/' + params.endpoint, {
+    method: 'POST',
+    body: JSON.stringify(params.data),
+  });
+}
+
+async function tryNetlifyFunc() {
+  const res = await req({
+    endpoint: 'createLink',
+    data: {
+      stuff: 'blank',
+    },
+  });
+  console.log('log res here: ', res);
+}
+
 function App() {
   return (
     <div className="App">
+      <button onclick={() => { tryNetlifyFunc(); }}>Click Me</button>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
