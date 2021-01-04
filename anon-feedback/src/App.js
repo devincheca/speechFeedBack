@@ -1,17 +1,5 @@
-// import './App.css';
-// import Request from './helpers/request.js';
+import './App.css';
 import MainCard from './MainCard/MainCard.js';
-
-/*
-async function tryNetlifyFunc() {
-  const req = new Request();
-  req.endpoint = 'feedback';
-  req.data = {
-    stuff: 'blank',
-  };
-  const res = await req.send();
-}
-*/
 
 function App() {
   return (
