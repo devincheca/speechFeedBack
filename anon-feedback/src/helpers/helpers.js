@@ -1,6 +1,6 @@
 import copyToClipboard from './browserCopy';
 import Request from './request';
-export default {
+export {
   copyToClipboard,
   Request,
 };

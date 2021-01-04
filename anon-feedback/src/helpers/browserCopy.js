@@ -1,4 +1,4 @@
-export function copyToClipboard(text, callback) {
+export default function copyToClipboard(text, callback) {
   let isCopied = true;
   if (window.clipboardData && window.clipboardData.setData) {
     callback();
