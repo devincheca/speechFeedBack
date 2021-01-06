@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { copyToClipboard, Request } from '../helpers/helpers.js';
+import HeaderInstructions from '../HeaderInstructions/HeaderInstructions.js';
 import TopBanner from '../TopBanner/TopBanner.js';
 import styles from './styles.js'
 
@@ -14,7 +15,7 @@ function MainCard() {
   return (
     <div className="">
       <TopBanner />
-      <div className="inputPhoneHeader">Input your phone number to receive anonymous feedback for your speech</div>
+      <HeaderInstructions headerText="Input your phone number to receive anonymous feedback for your speech" />
       <div className="form-group">
         <input
           type="number"
@@ -32,7 +33,11 @@ function MainCard() {
           style={isLoaderActive ? { display: 'none' } : { display: 'initial' }}>
             Get Feedback Link
         </button>
-        <button className="btn btn-primary" disabled style={isLoaderActive ? { display: 'initial'} : { display: 'none' }} id="loaderButton">
+        <button
+          className="btn btn-primary"
+          disabled
+          style={isLoaderActive ? { display: 'initial'} : { display: 'none' }}
+          id="loaderButton">
           <span className="spinner-border spinner-border-sm"></span>
           Loading..
         </button> 
@@ -43,7 +48,10 @@ function MainCard() {
             <input type="text" disabled className="form-control" id="linkInput" value={feedbackLink} />
           </div>
           <div id="copyStatus"></div>
-          <div className="form-group text-right" id="copyButtonDiv" style={isLinkSuccess ? { display: 'initial' } : { display: 'none' }}>
+          <div
+            className="form-group text-right"
+            id="copyButtonDiv"
+            style={isLinkSuccess ? { display: 'initial' } : { display: 'none' }}>
             <button type="button" className="btn btn-primary" onClick={() => copyLinkToClipboard()}>
               <span style={new styles().copyParent()}>
                 📄<span style={new styles().copyIcon()}>📄</span>

@@ -1,7 +1,7 @@
 function TopBanner() {
   // need to get this static asset in place for ti-manager.com
   return (
-    <div class="topBarDiv">
+    <div className="topBarDiv">
       <div>
         <img src="https://localbz.co/Dreambuilders/logo.png" alt="TI Manager Logo" />
       </div>
