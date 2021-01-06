@@ -3,7 +3,7 @@ import MainCard from './MainCard/MainCard.js';
 
 function App() {
   return (
-    <div className="">
+    <div className="card">
       <MainCard />
     </div>
   );

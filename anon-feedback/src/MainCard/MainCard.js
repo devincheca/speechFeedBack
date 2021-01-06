@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { copyToClipboard, Request } from '../helpers/helpers.js';
+import TopBanner from '../TopBanner/TopBanner.js';
 
 function MainCard() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -11,6 +12,7 @@ function MainCard() {
 
   return (
     <div className="">
+      <TopBanner />
       <div className="inputPhoneHeader">Input your phone number to receive anonymous feedback for your speech</div>
       <div className="form-group">
         <input type="number" className="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp={(event) => setPhoneNumber(event.target.value)} />
