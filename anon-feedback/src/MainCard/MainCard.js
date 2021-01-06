@@ -11,6 +11,7 @@ function MainCard() {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [feedbackLink, setFeedbackLink] = useState('');
+  const [copyStatusText, setCopyStatusText] = useState('');
 
   return (
     <div className="">
@@ -47,7 +48,7 @@ function MainCard() {
           <div className="form-group" id="linkDiv" style={isLinkSuccess ? { display: 'initial' } : { display: 'none' }}>
             <input type="text" disabled className="form-control" id="linkInput" value={feedbackLink} />
           </div>
-          <div id="copyStatus"></div>
+          <div id="copyStatus">{copyStatusText}</div>
           <div
             className="form-group text-right"
             id="copyButtonDiv"
@@ -82,15 +83,9 @@ function MainCard() {
   }
   function copyLinkToClipboard() {
     copyToClipboard(feedbackLink, () => {
-      return;
+      setCopyStatusText('Copied!');
+      setTimeout(() => { setCopyStatusText(''); }, 4000);
     });
-    /*
-  function updateCopyStatus() {
-    const copyStatus = document.getElementById('copyStatus');
-    copyStatus.innerHTML = 'Copied!';
-    setTimeout(() => { copyStatus.innerHTML = ''; }, 4000);
-  }
-  */
   }
 }
 
