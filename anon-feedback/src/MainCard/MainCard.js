@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { copyToClipboard, Request } from '../helpers/helpers.js';
 import TopBanner from '../TopBanner/TopBanner.js';
+import styles from './styles.js'
 
 function MainCard() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -15,7 +16,12 @@ function MainCard() {
       <TopBanner />
       <div className="inputPhoneHeader">Input your phone number to receive anonymous feedback for your speech</div>
       <div className="form-group">
-        <input type="number" className="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp={(event) => setPhoneNumber(event.target.value)} />
+        <input
+          type="number"
+          className="form-control"
+          id="phoneNumber"
+          placeholder="Input Phone Number (10 digits)"
+          onKeyUp={(event) => setPhoneNumber(event.target.value)} />
       </div>
       <div className="form-group text-right" id="feedbackButtonDiv">
         <button
@@ -39,8 +45,8 @@ function MainCard() {
           <div id="copyStatus"></div>
           <div className="form-group text-right" id="copyButtonDiv" style={isLinkSuccess ? { display: 'initial' } : { display: 'none' }}>
             <button type="button" className="btn btn-primary" onClick={() => copyLinkToClipboard()}>
-              <span style={{ fontSize: '.875em', marginRight: '.125em', position: 'relative', top: '-.25em', left: '-.125em' }}>
-                📄<span style={{ position: 'absolute', top: '.25em', left: '.25em' }}>📄</span>
+              <span style={new styles().copyParent()}>
+                📄<span style={new styles().copyIcon()}>📄</span>
               </span>
             </button>
           </div>
