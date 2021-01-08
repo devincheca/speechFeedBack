@@ -4,8 +4,8 @@ const PhoneDecryptor = require('./PhoneDecryptor');
 const SmsMessanger = require('./SmsMessanger');
 
 module.exports = {
-  LinkChecker,
+  // LinkChecker,
   PhoneEncryptor,
-  PhoneDecryptor,
-  SmsMessanger,
+  // PhoneDecryptor,
+  // SmsMessanger,
 };
