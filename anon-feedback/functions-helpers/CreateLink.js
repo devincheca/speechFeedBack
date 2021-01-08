@@ -2,7 +2,8 @@ const { PhoneEncryptor } = require('../helpers/helpers');
 
 exports.handler = async (event, context) => {
   const encryptor = new PhoneEncryptor();
-  encryptor.phoneNumber = req.body.phoneNumber;
+  console.log(Object.keys(event));
+  encryptor.phoneNumber = event.body.phoneNumber;
   encryptor.callback = (encryptedNumber) => {
     return {
       statusCode: 200,
