@@ -1,4 +1,4 @@
-const { PhoneEncryptor } = require('../../feedbackmanager/helpers/helpers');
+const { PhoneEncryptor } = require('../helpers/helpers');
 
 exports.handler = async (event, context) => {
   const encryptor = new PhoneEncryptor();
