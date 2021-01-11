@@ -3,6 +3,7 @@ const { PhoneEncryptor } = require('../helpers/helpers');
 exports.handler = async (event, context) => {
   const encryptor = new PhoneEncryptor();
   console.log(Object.keys(event));
+  console.log(Object.keys(event.body));
   encryptor.phoneNumber = event.body.phoneNumber;
   encryptor.callback = (encryptedNumber) => {
     return {
