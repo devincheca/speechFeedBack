@@ -70,6 +70,7 @@ function MainCard() {
       setLoader(!isLoaderActive);
       const req = new Request();
       req.endpoint = 'getLink';
+      console.log(phoneNumber);
       req.data = { phoneNumber };
       const res = await req.send();
       console.log(res);

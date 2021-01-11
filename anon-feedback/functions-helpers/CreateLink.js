@@ -4,6 +4,7 @@ exports.handler = async (event, context) => {
   const encryptor = new PhoneEncryptor();
   console.log(Object.keys(event));
   console.log(Object.keys(event.body));
+  console.log(Object.keys(context));
   encryptor.phoneNumber = event.body.phoneNumber;
   encryptor.callback = (encryptedNumber) => {
     return {
