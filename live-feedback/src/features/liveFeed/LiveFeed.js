@@ -1,23 +1,24 @@
 import React /*, { useState } */ from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  selectCount,
+  selectFeed,
+  updateFeed
 } from './liveFeedSlice';
 import styles from './LiveFeed.module.css';
 
-function onFeedbackMock() {
-  console.log('from feedback')
-  // dispatch(increment())
-  // the web socket connection is what will dispatch
-}
 export function LiveFeed() {
-  // const count = useSelector(selectCount);
-  const dispatch = useDispatch();
+  const feed = useSelector(selectFeed);
   // const [incrementAmount, setIncrementAmount] = useState('2');
+  const dispatch = useDispatch();
+
+  function onFeedbackMock() {
+    console.log('from mock')
+    // the web socket connection is what will dispatch
+    const sampleFeedback = {
+      body: 'sample feedback'
+    }
+    dispatch(updateFeed(sampleFeedback))
+  }
 
   return (
     <div>
@@ -29,6 +30,11 @@ export function LiveFeed() {
           Mock Feedback Receive
         </button>
       </div>
+      { feed && feed.map(feedback => {
+          return (
+            <div>feedback.body</div>
+          )
+        }) }
     </div>
   );
 }
