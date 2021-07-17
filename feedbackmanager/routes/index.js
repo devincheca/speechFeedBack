@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const { LinkChecker, PhoneEncryptor, PhoneDecryptor, SmsMessanger } = require('../helpers/helpers');
+const {
+  LinkChecker,
+  PhoneEncryptor,
+  PhoneDecryptor,
+  SmsMessanger,
+  VoteLink
+} = require('../helpers/helpers');
 
 router.get('/', (req, res, next) => {
   res.render('index', { title: 'Express' });
@@ -35,6 +41,12 @@ router.post('/sendFeedback', async (req, res, next) => {
   messanger.feedback = req.body.feedback;
   const isSent = await messanger.send();
   res.json({ isSent });
+});
+
+router.get('/vote', async (req, res, next) => {
+  const voteLink = new VoteLink();
+  const link = await voteLink.getNewVotingLink();
+  res.render('vote', { title: 'Express', link });
 });
 
 module.exports = router;
