@@ -1,8 +1,8 @@
-<div class="inputPhoneHeader">To send your anonymous feedback input your feedback below</div>
+<div class="inputPhoneHeader">To send your anonymous feedback input your feedback below:</div>
 <div>
   <div class="form-group">
     <label for="comment">Feedback:</label>
-    <textarea class="form-control" rows="5" id="comment" onKeyUp="state.feedback = this.value"></textarea>
+    <textarea class="form-control" rows="5" id="comment" onKeyUp="state.feedback = this.value" autofocus></textarea>
   </div>
   <div class="form-group text-right">
     <button type="button" class="btn btn-primary" onClick="sendFeedback()" id="feedbackButton">Send Feedback</button>
