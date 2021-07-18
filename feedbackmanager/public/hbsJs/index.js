@@ -12,6 +12,7 @@ async function getLink() {
   document.getElementById('feedbackButtonDiv').style.display = 'none';
   document.getElementById('linkDiv').style.display = 'initial';
   document.getElementById('copyButtonDiv').style.display = 'initial';
+  document.getElementById('linkInstructions').style.display = 'flex';
   const linkInput = document.getElementById('linkInput');
   linkInput.value = window.localStorage.domain + '/feedback/' + res.token;
   copyToClipboard(linkInput.value);
