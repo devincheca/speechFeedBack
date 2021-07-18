@@ -10,9 +10,10 @@ class VoteLink {
   async getNewVotingLink() {
     try {
       const linkId = v4();
+      console.log('linkId: ', linkId);
       const params = {
         Item: {
-          'tm-anon-votes_id': { S: linkId },
+          'tm-anon-votes_dynamo_id': { S: linkId },
           'timeStamp': { N: (Math.floor(Date.now() / 1000) + (24*60*60)).toString() }
         },
         TableName: 'tm-anon-votes'
