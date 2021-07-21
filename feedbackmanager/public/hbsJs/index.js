@@ -28,6 +28,9 @@ function toggleLoaderButton() {
   }
 }
 function copyToClipboard(text) {
+  if (!text) {
+    text = document.getElementById('linkInput').value;
+  }
   let isCopied = true;
   if (window.clipboardData && window.clipboardData.setData) {
     updateCopyStatus();
