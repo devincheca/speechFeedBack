@@ -12,6 +12,10 @@ router.get('/', (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/feedback', (req, res, next) => {
+  res.render('index', { title: 'Express' });
+});
+
 router.get('/feedback/:token', (req, res, next) => {
   res.render('feedback', { token: req.params.token });
 });

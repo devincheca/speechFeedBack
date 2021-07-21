@@ -10,7 +10,6 @@ class VoteLink {
   async getNewVotingLink() {
     try {
       const linkId = v4();
-      console.log('linkId: ', linkId);
       const params = {
         Item: {
           'tm-anon-votes_dynamo_id': { S: linkId },
