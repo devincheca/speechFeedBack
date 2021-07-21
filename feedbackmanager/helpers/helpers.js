@@ -3,6 +3,7 @@ const LinkChecker = require('./LinkChecker');
 const PhoneEncryptor = require('./PhoneEncryptor');
 const PhoneDecryptor = require('./PhoneDecryptor');
 const SmsMessanger = require('./SmsMessanger');
+const VoteChecker = require('./VoteChecker');
 const VoteLink = require('./VoteLink');
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
   PhoneEncryptor,
   PhoneDecryptor,
   SmsMessanger,
+  VoteChecker,
   VoteLink
 };

@@ -6,6 +6,7 @@ const {
   PhoneEncryptor,
   PhoneDecryptor,
   SmsMessanger,
+  VoteChecker,
   VoteLink
 } = require('../helpers/helpers');
 
@@ -54,8 +55,15 @@ router.post('/sendFeedback', async (req, res, next) => {
 
 router.get('/vote', async (req, res, next) => {
   const voteLink = new VoteLink();
-  const link = await voteLink.getNewVotingLink();
-  res.render('vote', { title: 'Express', link });
+  const { linkId: link, originator } = await voteLink.getNewVotingLink();
+  res.render('vote', { title: 'Express', link, originator });
+});
+
+router.post('/getVotes', (req, res, next) => {
+  const votes = new VoteChecker();
+  votes.link = req.body.link;
+  votes.originator = req.body.originator;
+  res.json({ votes: votes.getVotes() });
 });
 
 module.exports = router;
