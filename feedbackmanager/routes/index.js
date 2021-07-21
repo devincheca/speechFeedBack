@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const {
+  DOMPurify,
   LinkChecker,
   PhoneEncryptor,
   PhoneDecryptor,
@@ -17,7 +18,9 @@ router.get('/feedback', (req, res, next) => {
 });
 
 router.get('/feedback/:token', (req, res, next) => {
-  res.render('feedback', { token: req.params.token });
+  const scrubber = new DOMPurify();
+  scrubber.dirty = req.params.token;
+  res.render('feedback', { token: scrubber.scrub() });
 });
 
 router.post('/getLink', (req, res, next) => {
@@ -42,7 +45,9 @@ router.post('/sendFeedback', async (req, res, next) => {
   const phoneNumber = await decryptor.decryptNumber();
   const messanger = new SmsMessanger();
   messanger.phoneNumber = decryptor.phoneNumber;
-  messanger.feedback = req.body.feedback;
+  const scrubber = new DOMPurify();
+  scrubber.dirty = req.body.feedback;
+  messanger.feedback = scrubber.scrub();
   const isSent = await messanger.send();
   res.json({ isSent });
 });
