@@ -10,12 +10,18 @@ async function pollLink(link) {
       },
       endpoint: '/getVotes'
     });
-    console.log('res: ', res);
-    //update state
-    renderVotes();
+    if (!res) {
+      alert('Something went wrong, either you are not the person that initiated the vote, or the system is down.');
+    }
+    if (res.votes) {
+      state.votes = res.votes;
+    }
     setTimeout(() => pollLink(link), 500);
   } catch(error) {
     console.trace(error);
     setTimeout(() => pollLink(link), 500);
   }
+}
+function renderVotes() {
+  console.log('render votes here');
 }

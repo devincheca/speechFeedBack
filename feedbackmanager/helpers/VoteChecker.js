@@ -10,7 +10,8 @@ class VoteChecker {
 
   async getVotes() {
     try {
-      return await this.getItemFromDB();
+      const res = await this.getItemFromDB();
+      return res.Item['tm-anon-votes_originator'] === this.originator ? res.Item : {};
     }
     catch(error) {
       console.trace(error);
@@ -19,15 +20,14 @@ class VoteChecker {
   }
   async getItemFromDB() {
     try {
+      const [ id ] = this.link.split('/').reverse();
       const params = {
         Key: {
-          'tm-anon-votes_dynamo_id': { S: this.link },
-          'tm-anon-votes_originator': { S: this.originator },
+          'tm-anon-votes_dynamo_id': { S: id },
         },
         TableName: 'tm-anon-votes'
       };
-      this.res = await dynamodb.getItem(params).promise();
-      return this.res;
+      return await dynamodb.getItem(params).promise();
     }
     catch(error) { console.trace(error); }
   }
