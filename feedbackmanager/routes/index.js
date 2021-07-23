@@ -66,4 +66,15 @@ router.post('/getVotes', (req, res, next) => {
   res.json({ votes: votes.getVotes() });
 });
 
+router.get('/castVote/:token', (req, res, next) => {
+  const scrubber = new DOMPurify();
+  scrubber.dirty = req.params.token;
+  res.render('submitvote', { token: scrubber.scrub() });
+});
+
+router.post('/saveVote', (req, res, next) => {
+  // need to handle the case here by adding a field to the data to say that the vote cannot be saved until the other requests are done being saved
+  res.json({ isSaved })
+});
+
 module.exports = router;
