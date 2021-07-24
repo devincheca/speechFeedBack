@@ -15,8 +15,7 @@ async function pollLink(link) {
       alert('Something went wrong, either you are not the person that initiated the vote, or the system is down.');
     }
     if (res.votes) {
-      state.votes = JSON.parse(res.votes);
-      renderVotes();
+      renderVotes(JSON.parse(res.votes));
     }
     if (isPollable()) {
       setTimeout(() => pollLink(link), 500);
@@ -26,14 +25,19 @@ async function pollLink(link) {
     setTimeout(() => pollLink(link), 500);
   }
 }
-function renderVotes() {
+function renderVotes(votes) {
   const div = document.getElementById('voteTallyDiv');
-  const { votes } = this.state;
-  for (let i = votes; i < votes.length; i++) {
-    div.appendChild(getVoteDiv(vote));
+  div.innerHTML = '';
+  const titleDiv = document.createElement('div');
+  titleDiv.style.marginBottom = '.25em';
+  titleDiv.innerHTML = 'The votes will come in as a live feed below:';
+  div.appendChild(titleDiv);
+  for (let i = 0; i < votes.length; i++) {
+    div.appendChild(getVoteDiv(votes[i]));
   }
   function getVoteDiv(vote) {
     const div = document.createElement('div');
+    div.style.textAlign = 'center';
     div.innerHTML = vote;
     return div;
   }
