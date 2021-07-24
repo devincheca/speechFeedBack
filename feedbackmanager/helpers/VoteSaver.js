@@ -17,7 +17,7 @@ class VoteSaver {
       const { Item } = res;
       const linkId = Item['tm-anon-votes_dynamo_id'];
       const originator = Item['tm-anon-votes_originator'];
-      const votes = JSON.parse(Item.votes.S).push(this.vote);
+      const votes = JSON.parse(Item.votes.S).concat([this.vote]);
       const params = {
         Item: {
           'tm-anon-votes_dynamo_id': linkId,

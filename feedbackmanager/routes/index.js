@@ -60,11 +60,13 @@ router.get('/vote', async (req, res, next) => {
   res.render('vote', { title: 'Express', link, originator });
 });
 
-router.post('/getVotes', (req, res, next) => {
+router.post('/getVotes', async (req, res, next) => {
   const votes = new VoteChecker();
   votes.link = req.body.link;
   votes.originator = req.body.originator;
-  res.json({ votes: votes.getVotes() });
+  const result = await votes.getVotes();
+  console.log('result: ', result);
+  res.json({ votes: result });
 });
 
 router.get('/castVote/:token', (req, res, next) => {

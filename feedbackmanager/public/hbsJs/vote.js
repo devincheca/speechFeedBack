@@ -14,6 +14,7 @@ async function pollLink(link) {
     if (!res) {
       alert('Something went wrong, either you are not the person that initiated the vote, or the system is down.');
     }
+    console.log('res: ', res);
     if (res.votes) {
       state.votes = res.votes;
       renderVotes();

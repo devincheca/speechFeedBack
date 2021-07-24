@@ -14,7 +14,9 @@ class VoteChecker {
       if (!res.Item) {
         return 'Oops, Something went wrong.'
       }
-      return res.Item['tm-anon-votes_originator'] === this.originator ? res.Item : {};
+      console.log('orig: ', this.originator);
+      console.log('res: ', res.Item['tm-anon-votes_originator'].S);
+      return res.Item['tm-anon-votes_originator'].S === this.originator ? res.Item.votes.S : {};
     }
     catch(error) {
       console.trace(error);
