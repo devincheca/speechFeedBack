@@ -5,6 +5,7 @@ const PhoneDecryptor = require('./PhoneDecryptor');
 const SmsMessanger = require('./SmsMessanger');
 const VoteChecker = require('./VoteChecker');
 const VoteLink = require('./VoteLink');
+const VoteSaver = require('./VoteSaver');
 
 module.exports = {
   DOMPurify,
@@ -13,5 +14,6 @@ module.exports = {
   PhoneDecryptor,
   SmsMessanger,
   VoteChecker,
-  VoteLink
+  VoteLink,
+  VoteSaver
 };

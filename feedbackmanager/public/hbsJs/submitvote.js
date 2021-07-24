@@ -6,7 +6,7 @@ async function castVote() {
   toggleLoaderButton();
   const res = await req({
     data: {
-      feedback: this.state.vote,
+      vote: this.state.vote,
       link: getToken()
     },
     endpoint: '/saveVote'

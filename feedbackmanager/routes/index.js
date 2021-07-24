@@ -7,7 +7,8 @@ const {
   PhoneDecryptor,
   SmsMessanger,
   VoteChecker,
-  VoteLink
+  VoteLink,
+  VoteSaver
 } = require('../helpers/helpers');
 
 router.get('/', (req, res, next) => {
@@ -72,8 +73,11 @@ router.get('/castVote/:token', (req, res, next) => {
   res.render('submitvote', { token: scrubber.scrub() });
 });
 
-router.post('/saveVote', (req, res, next) => {
-  // need to handle the case here by adding a field to the data to say that the vote cannot be saved until the other requests are done being saved
+router.post('/saveVote', async (req, res, next) => {
+  const saver = new VoteSaver();
+  saver.vote = req.body.vote;
+  saver.link = req.body.link;
+  const isSaved = await saver.save();
   res.json({ isSaved })
 });
 
