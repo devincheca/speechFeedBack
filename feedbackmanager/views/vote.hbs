@@ -28,6 +28,9 @@
 <script src='/hbsJs/vote.js'></script>
 <script>
   window.onload = () => {
+    const pageTitle = 'Voting System';
+    document.getElementById('page-title').innerHTML = pageTitle;
+    Array.from(document.getElementsByTagName('title')).map(title => title.innerHTML = pageTitle);
     const fullLink = window.localStorage.domain + '/castVote/' + document.getElementById('linkValueDiv').innerHTML.toString();
     document.getElementById('linkInput').value = fullLink;
     localStorage.originator = document.getElementById('originatorValueDiv').innerHTML.toString();
