@@ -17,7 +17,7 @@ class VoteLink {
           'tm-anon-votes_originator': { S: originator },
           'votes': { S: JSON.stringify([]) },
           'timeStamp': { N: (Math.floor(Date.now() / 1000) + (24*60*60)).toString() },
-          'isSaving': { B: 0 }
+          'isSaving': { BOOL: false }
         },
         TableName: 'tm-anon-votes'
       };

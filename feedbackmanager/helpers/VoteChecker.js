@@ -11,6 +11,9 @@ class VoteChecker {
   async getVotes() {
     try {
       const res = await this.getItemFromDB();
+      if (!res.Item) {
+        return 'Oops, Something went wrong.'
+      }
       return res.Item['tm-anon-votes_originator'] === this.originator ? res.Item : {};
     }
     catch(error) {
@@ -21,6 +24,9 @@ class VoteChecker {
   async getItemFromDB() {
     try {
       const [ id ] = this.link.split('/').reverse();
+      if (!id) {
+        throw 'Invalid ID';
+      }
       const params = {
         Key: {
           'tm-anon-votes_dynamo_id': { S: id },
@@ -29,7 +35,10 @@ class VoteChecker {
       };
       return await dynamodb.getItem(params).promise();
     }
-    catch(error) { console.trace(error); }
+    catch(error) {
+      // console.trace(error);
+      return {};
+    }
   }
 }
 
