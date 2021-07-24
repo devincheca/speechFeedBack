@@ -1,0 +1,39 @@
+<div class="inputPhoneHeader">Copy the following link and send it to your club members so they may cast their vote for best table topic, best speaker, or best evaluator</div>
+<div>
+  <div class="form-group" id="linkDiv">
+    <input type="text" disabled class="form-control" id="linkInput">
+  </div>
+  <div class="copyPasteGroup">
+    <!--
+    <div class="form-group" id="linkDiv">
+      <input type="text" disabled class="form-control" id="linkInput">
+    </div>
+    <div id="copyStatus"></div>
+    <div class="form-group text-right" id="copyButtonDiv">
+      <button type="button" class="btn btn-primary" id="copyButton" onClick="copyToClipboard()">
+        <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+          📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
+        </span>
+      </button>
+    </div>
+    -->
+  </div>
+</div>
+<div id="voteTallyDiv"></div>
+<div id="successDiv" style="color: green;"></div>
+<div id="failDiv" style="color: red;"></div>
+<div id="linkValueDiv" style="display: none;">{{ link }}</div>
+<div id="originatorValueDiv" style="display: none;">{{ originator }}</div>
+<script src='/hbsJs/index.js'></script>
+<script src='/hbsJs/vote.js'></script>
+<script>
+  window.onload = () => {
+    const pageTitle = 'Voting System';
+    document.getElementById('page-title').innerHTML = pageTitle;
+    Array.from(document.getElementsByTagName('title')).map(title => title.innerHTML = pageTitle);
+    const fullLink = window.localStorage.domain + '/castVote/' + document.getElementById('linkValueDiv').innerHTML.toString();
+    document.getElementById('linkInput').value = fullLink;
+    localStorage.originator = document.getElementById('originatorValueDiv').innerHTML.toString();
+    pollLink(fullLink);
+  };
+</script>

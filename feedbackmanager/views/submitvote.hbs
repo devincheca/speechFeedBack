@@ -1,0 +1,17 @@
+<div class="inputPhoneHeader">To cast your vote, type the person's name below:</div>
+<div>
+  <div class="form-group">
+    <textarea class="form-control" rows="5" id="comment" onKeyUp="state.vote = this.value" autofocus></textarea>
+  </div>
+  <div class="form-group text-right">
+    <button type="button" class="btn btn-primary" onClick="castVote()" id="feedbackButton">Cast Vote</button>
+    <button class="btn btn-primary" disabled style="display: none;" id="loaderButton">
+      <span class="spinner-border spinner-border-sm"></span>
+      Loading..
+    </button> 
+  </div>
+</div>
+<div id="successDiv" style="color: green;"></div>
+<div id="failDiv" style="color: red;"></div>
+<div style="display: none;" id="tokenDiv">{{token}}</div>
+<script src='/hbsJs/submitvote.js'></script>
