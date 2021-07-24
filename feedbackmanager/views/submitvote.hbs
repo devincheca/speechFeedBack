@@ -1,7 +1,7 @@
 <div class="inputPhoneHeader">To cast your vote, type the person's name below:</div>
 <div>
   <div class="form-group">
-    <textarea class="form-control" rows="5" id="comment" onKeyUp="state.vote = this.value"></textarea>
+    <textarea class="form-control" rows="5" id="comment" onKeyUp="state.vote = this.value" autofocus></textarea>
   </div>
   <div class="form-group text-right">
     <button type="button" class="btn btn-primary" onClick="castVote()" id="feedbackButton">Cast Vote</button>

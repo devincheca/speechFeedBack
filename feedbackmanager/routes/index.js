@@ -65,7 +65,6 @@ router.post('/getVotes', async (req, res, next) => {
   votes.link = req.body.link;
   votes.originator = req.body.originator;
   const result = await votes.getVotes();
-  console.log('result: ', result);
   res.json({ votes: result });
 });
 
