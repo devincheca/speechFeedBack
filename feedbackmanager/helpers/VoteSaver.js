@@ -14,16 +14,16 @@ class VoteSaver {
       if (!res.Item) {
         return 'Oops, Something went wrong.'
       }
+      const { Item } = res;
       const linkId = Item['tm-anon-votes_dynamo_id'];
       const originator = Item['tm-anon-votes_originator'];
-      const votes = Item.votes.push(this.vote);
-      const timeStamp = Item.timeStamp;
+      const votes = JSON.parse(Item.votes.S).push(this.vote);
       const params = {
         Item: {
-          'tm-anon-votes_dynamo_id': { S: linkId },
-          'tm-anon-votes_originator': { S: originator },
+          'tm-anon-votes_dynamo_id': linkId,
+          'tm-anon-votes_originator': originator,
           'votes': { S: JSON.stringify(votes) },
-          'timeStamp': { N: timeStamp.toString() },
+          'timeStamp': Item.timeStamp,
           'isSaving': { BOOL: false }
         },
         TableName: 'tm-anon-votes'

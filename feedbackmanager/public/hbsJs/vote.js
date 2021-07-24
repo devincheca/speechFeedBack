@@ -1,5 +1,5 @@
 var state = {
-  initDate: null,
+  initDate: new Date(),
   votes: []
 };
 async function pollLink(link) {
@@ -16,6 +16,7 @@ async function pollLink(link) {
     }
     if (res.votes) {
       state.votes = res.votes;
+      renderVotes();
     }
     if (isPollable()) {
       setTimeout(() => pollLink(link), 500);
@@ -26,24 +27,28 @@ async function pollLink(link) {
   }
 }
 function renderVotes() {
-  console.log('render votes here');
+  const div = document.getElementById('voteTallyDiv');
+  const { votes } = this.state;
+  for (let i = votes; i < votes.length; i++) {
+    div.appendChild(getVoteDiv(vote));
+  }
+  function getVoteDiv(vote) {
+    const div = document.createElement('div');
+    div.innerHTML = vote;
+    return div;
+  }
 }
 function isPollable() {
-  if (this.state.initDate) {
-    const { currentDate } = this.state;
-    const timeNow = new Date();
-    if (
-      currentDate.getFullYear() === timeNow.getFullYear()
-      && currentDate.getMonth() === timeNow.getMonth()
-      && currentDate.getDate() === timeNow.getDate()
-    ) {
-      const totalMinutesSinceStart = 60*(timeNow.getHours() - currentDate.getHours()) + (timeNow.getMinutes() - currentDate.getMinutes());
-      return totalMinutesSinceStart <= 60;
-    } else {
-      return false;
-    }
+  const { initDate: currentDate } = this.state;
+  const timeNow = new Date();
+  if (
+    currentDate.getFullYear() === timeNow.getFullYear()
+    && currentDate.getMonth() === timeNow.getMonth()
+    && currentDate.getDate() === timeNow.getDate()
+  ) {
+    const totalMinutesSinceStart = 60*(timeNow.getHours() - currentDate.getHours()) + (timeNow.getMinutes() - currentDate.getMinutes());
+    return totalMinutesSinceStart <= 60;
   } else {
-    this.state.initDate = new Date();
-    return true;
+    return false;
   }
 }

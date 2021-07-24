@@ -12,7 +12,7 @@ async function castVote() {
     endpoint: '/saveVote'
   });
   toggleLoaderButton();
-  if (res.isSent) {
+  if (res.isSaved) {
     successMessage('Your vote was successfully cast');
   } else {
     errorMessage('Oops. Something went wrong. Refresh the page and try again.');
@@ -23,6 +23,7 @@ function toggleLoaderButton() {
   const loaderButton = document.getElementById('loaderButton');
   if (loaderButton.style.display === 'none') {
     feedbackButton.style.display = 'none';
+    feedbackButton.disabled = true;
     loaderButton.style.display = 'initial';
   } else {
     feedbackButton.style.display = 'initial';
