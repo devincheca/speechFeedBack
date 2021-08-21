@@ -12,7 +12,7 @@ const {
 } = require('../helpers/helpers');
 
 router.get('/', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+  res.render('home', { title: 'Home' });
 });
 
 router.get('/feedback', (req, res, next) => {
