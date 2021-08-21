@@ -18,6 +18,9 @@ a {
   margin: 1em 0 2em 0;
   padding: 0 1em 0 1em;
 }
+.topBarDiv div img {
+  width: 25px;
+}
 .inputPhoneHeader {
   text-align: center;
   padding: 0 2em 0 2em;
