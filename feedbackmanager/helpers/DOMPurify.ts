@@ -9,8 +9,8 @@ export class DOMPurify {
 
   scrub(): string {
     const window = new JSDOM('').window;
-    const DOMPurify = createDOMPurify(window);
-    const clean = DOMPurify.sanitize(this.dirty);
+    const sanitizer = createDOMPurify(window);
+    const clean = sanitizer.sanitize(this.dirty);
     this.clean = clean;
     return this.clean;
   }
