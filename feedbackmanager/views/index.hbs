@@ -1,5 +1,6 @@
 <div class="inputPhoneHeader">Input your phone number to receive anonymous feedback for your speech</div>
 <div>
+  <!--
   <div class="form-group">
     <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value" autofocus>
   </div>
@@ -10,15 +11,21 @@
       Loading..
     </button> 
   </div>
+  -->
   <div class="form-group text-center" id="linkInstructions" style="display: none;">
-    Send the following link to club members you would like to receive speech feedback from:
+    Send the following link to club members you would like to receive speech feedback from. Your feedback will appear below.
   </div>
   <div class="copyPasteGroup">
-    <div class="form-group" id="linkDiv" style="display: none;">
+    <div class="form-group" id="linkDiv">
+    <!-- <div class="form-group" id="linkDiv" style="display: none;"> -->
+      <!-- <input type="text" disabled class="form-control" id="linkInput"> -->
       <input type="text" disabled class="form-control" id="linkInput">
+      <div style="display: none;" id="linkDivId">{{ link }}</div>
+      <div id="originatorValueDiv" style="display: none;">{{ originator }}</div>
     </div>
     <div id="copyStatus"></div>
-    <div class="form-group text-right" id="copyButtonDiv" style="display: none;">
+    <div class="form-group text-right" id="copyButtonDiv">
+    <!-- <div class="form-group text-right" id="copyButtonDiv" style="display: none;"> -->
       <button type="button" class="btn btn-primary" onClick="copyToClipboard()">
         <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
           📄<span style="position: absolute; top: .25em; left: .25em">📄</span>

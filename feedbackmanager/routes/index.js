@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const {
   DOMPurify,
+  FeedbackLink,
   LinkChecker,
   PhoneEncryptor,
   PhoneDecryptor,
@@ -15,8 +16,12 @@ router.get('/', (req, res, next) => {
   res.render('home', { title: 'Home' });
 });
 
-router.get('/feedback', (req, res, next) => {
-  res.render('index', { title: 'Express' });
+router.get('/feedback', async (req, res, next) => {
+  const feedbackLink = new FeedbackLink();
+  const { linkId: link, originator } = await feedbackLink.getNewVotingLink();
+  res.render('index', { title: 'Express', link, originator });
+  // VVV for phone VVV
+  // res.render('index', { title: 'Express' });
 });
 
 router.get('/feedback/:token', (req, res, next) => {

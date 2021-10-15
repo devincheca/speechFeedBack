@@ -1,4 +1,37 @@
 var state = {};
+window.onload = () => {
+  document.getElementById('linkDiv').style.display = 'initial';
+  document.getElementById('copyButtonDiv').style.display = 'initial';
+  document.getElementById('linkInstructions').style.display = 'flex';
+  const linkInput = document.getElementById('linkInput');
+  linkInput.value = window.localStorage.domain + '/feedback/' + document.getElementById('linkDivId').innerHTML;
+  copyToClipboard(linkInput.value);
+  localStorage.originator = document.getElementById('originatorValueDiv').innerHTML.toString();
+  pollLink(linkInput.value);
+};
+async function pollLink(link) {
+  try {
+    const res = await req({
+      data: {
+        link,
+        originator: window.localStorage.originator
+      },
+      endpoint: '/getFeedback'
+    });
+    if (!res) {
+      alert('Something went wrong, either you are not the person that initiated the vote, or the system is down.');
+    }
+    if (res.votes) {
+      renderVotes(JSON.parse(res.votes));
+    }
+    if (isPollable()) {
+      setTimeout(() => pollLink(link), 500);
+    }
+  } catch(error) {
+    console.trace(error);
+    setTimeout(() => pollLink(link), 500);
+  }
+}
 async function getLink() {
   if (!this.state.phoneNumber) {
     return errorMessage('Input a phone number above to receive feedback');
