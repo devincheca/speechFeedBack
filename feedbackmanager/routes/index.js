@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const {
   DOMPurify,
+  FeedbackChecker,
   FeedbackLink,
   FeedbackSaver,
   LinkChecker,
@@ -78,6 +79,14 @@ router.get('/vote', async (req, res, next) => {
 
 router.post('/getVotes', async (req, res, next) => {
   const votes = new VoteChecker();
+  votes.link = req.body.link;
+  votes.originator = req.body.originator;
+  const result = await votes.getVotes();
+  res.json({ votes: result });
+});
+
+router.post('/getFeedback', async (req, res, next) => {
+  const votes = new FeedbackChecker();
   votes.link = req.body.link;
   votes.originator = req.body.originator;
   const result = await votes.getVotes();

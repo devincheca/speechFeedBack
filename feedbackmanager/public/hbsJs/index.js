@@ -1,4 +1,7 @@
-var state = {};
+var state = {
+  initDate: new Date(),
+  votes: []
+};
 window.onload = () => {
   document.getElementById('linkDiv').style.display = 'initial';
   document.getElementById('copyButtonDiv').style.display = 'initial';
@@ -30,6 +33,37 @@ async function pollLink(link) {
   } catch(error) {
     console.trace(error);
     setTimeout(() => pollLink(link), 500);
+  }
+}
+function renderVotes(votes) {
+  const div = document.getElementById('voteTallyDiv');
+  div.innerHTML = '';
+  const titleDiv = document.createElement('div');
+  titleDiv.style.marginBottom = '.25em';
+  titleDiv.innerHTML = 'The feedback will come in as a live feed below:';
+  div.appendChild(titleDiv);
+  for (let i = 0; i < votes.length; i++) {
+    div.appendChild(getVoteDiv(votes[i]));
+  }
+  function getVoteDiv(vote) {
+    const div = document.createElement('div');
+    div.style.textAlign = 'center';
+    div.innerHTML = vote;
+    return div;
+  }
+}
+function isPollable() {
+  const { initDate: currentDate } = this.state;
+  const timeNow = new Date();
+  if (
+    currentDate.getFullYear() === timeNow.getFullYear()
+    && currentDate.getMonth() === timeNow.getMonth()
+    && currentDate.getDate() === timeNow.getDate()
+  ) {
+    const totalMinutesSinceStart = 60*(timeNow.getHours() - currentDate.getHours()) + (timeNow.getMinutes() - currentDate.getMinutes());
+    return totalMinutesSinceStart <= 60;
+  } else {
+    return false;
   }
 }
 async function getLink() {
