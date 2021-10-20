@@ -3,6 +3,7 @@ var router = express.Router();
 const {
   DOMPurify,
   FeedbackLink,
+  FeedbackSaver,
   LinkChecker,
   PhoneEncryptor,
   PhoneDecryptor,
@@ -56,6 +57,16 @@ router.post('/sendFeedback', async (req, res, next) => {
   scrubber.dirty = req.body.feedback;
   messanger.feedback = scrubber.scrub();
   const isSent = await messanger.send();
+  res.json({ isSent });
+});
+
+router.post('/sendSpeechFeedback', async (req, res, next) => {
+  const feedbackSaver = new FeedbackSaver();
+  const scrubber = new DOMPurify();
+  scrubber.dirty = req.body.feedback;
+  feedbackSaver.feedback = scrubber.scrub();
+  feedbackSaver.token = req.body.token;
+  const isSent = await feedbackSaver.save();
   res.json({ isSent });
 });
 

@@ -1,5 +1,6 @@
 const DOMPurify = require('./DOMPurify');
 const FeedbackLink = require('./FeedbackLink');
+const FeedbackSaver = require('./FeedbackSaver');
 const LinkChecker = require('./LinkChecker');
 const PhoneEncryptor = require('./PhoneEncryptor');
 const PhoneDecryptor = require('./PhoneDecryptor');
@@ -11,6 +12,7 @@ const VoteSaver = require('./VoteSaver');
 module.exports = {
   DOMPurify,
   FeedbackLink,
+  FeedbackSaver,
   LinkChecker,
   PhoneEncryptor,
   PhoneDecryptor,

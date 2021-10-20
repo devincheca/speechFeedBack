@@ -4,12 +4,21 @@ async function sendFeedback() {
     return errorMessage('Please enter some feedback for the speaker');
   }
   toggleLoaderButton();
+  /*
   const res = await req({
     data: {
       feedback: this.state.feedback,
       token: getToken()
     },
     endpoint: '/sendFeedback'
+  });
+  */
+  const res = await req({
+    data: {
+      feedback: this.state.feedback,
+      token: getToken()
+    },
+    endpoint: '/sendSpeechFeedback'
   });
   toggleLoaderButton();
   if (res.isSent) {

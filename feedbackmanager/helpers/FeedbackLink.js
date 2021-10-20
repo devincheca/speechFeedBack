@@ -14,9 +14,10 @@ class FeedbackLink {
       const params = {
         Item: {
           'tm-anon-links_id': { S: linkId },
-          'tm-anon-links_originator': originator,
+          'tm-anon-links_originator': { S: originator },
           'phoneNumber': { S: linkId },
-          'timeStamp': { N: (Math.floor(Date.now() / 1000) + (24*60*60)).toString() }
+          'timeStamp': { N: (Math.floor(Date.now() / 1000) + (24*60*60)).toString() },
+          'feedback': { S: JSON.stringify([]) }
         },
         TableName: 'tm-anon-links'
       };

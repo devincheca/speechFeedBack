@@ -4,7 +4,7 @@ const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 class FeedbackSaver {
   constructor() {
-    this.link = '';
+    this.token = '';
     this.vote = '';
   }
 
@@ -15,18 +15,18 @@ class FeedbackSaver {
         return 'Oops, Something went wrong.'
       }
       const { Item } = res;
-      const linkId = Item['tm-anon-votes_dynamo_id'];
-      const originator = Item['tm-anon-votes_originator'];
-      const votes = JSON.parse(Item.votes.S).concat([this.vote]);
+      const linkId = Item['tm-anon-links_id'];
+      const originator = Item['tm-anon-links_originator'];
+      const feedback = JSON.parse(Item.feedback.S).concat([this.feedback]);
       const params = {
         Item: {
-          'tm-anon-votes_dynamo_id': linkId,
-          'tm-anon-votes_originator': originator,
-          'votes': { S: JSON.stringify(votes) },
+          'tm-anon-links_id': linkId,
+          'tm-anon-links_originator': originator,
+          'feedback': { S: JSON.stringify(feedback) },
           'timeStamp': Item.timeStamp,
           'isSaving': { BOOL: false }
         },
-        TableName: 'tm-anon-votes'
+        TableName: 'tm-anon-links'
       };
       await dynamodb.putItem(params).promise();
       return true;
@@ -38,7 +38,7 @@ class FeedbackSaver {
   }
   async getItemFromDB() {
     try {
-      const id = this.link;
+      const id = this.token;
       if (!id) {
         throw 'Invalid ID';
       }
@@ -46,7 +46,7 @@ class FeedbackSaver {
         Key: {
           'tm-anon-links_id': { S: id },
         },
-        TableName: 'tm-anon-votes'
+        TableName: 'tm-anon-links'
       };
       return await dynamodb.getItem(params).promise();
     }
