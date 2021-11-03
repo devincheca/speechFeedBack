@@ -27,6 +27,10 @@ class FeedbackSaver {
           'isSaving': { BOOL: false }
         },
         TableName: 'tm-anon-links'
+        // ^^^ here is the plan
+        // make a tm-anon-links-append-only
+        // append records accordingly for each tm-anon-links_id where each entry has a unique append only id itself
+        // set up a function for the FeedbackChecker to go pull all of them for a given tm-anon-links_id and then pass those to the UI
       };
       await dynamodb.putItem(params).promise();
       return true;
