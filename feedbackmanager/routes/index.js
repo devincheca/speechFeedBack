@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var QRCode = require('qrcode')
 const {
   DOMPurify,
   LinkChecker,
@@ -29,7 +30,13 @@ router.post('/getLink', (req, res, next) => {
   const encryptor = new PhoneEncryptor();
   encryptor.phoneNumber = req.body.phoneNumber;
   encryptor.callback = (encryptedNumber) => {
-    res.json({ token: encryptedNumber });
+    // might need to adjust this for the domain and http vs. https
+    QRCode.toDataURL(encryptedNumber, function (err, url) {
+      res.json({
+        token: encryptedNumber,
+        url
+      });
+    });
   };
   encryptor.encryptNumber();
 });
