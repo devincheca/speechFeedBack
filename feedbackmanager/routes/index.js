@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var QRCode = require('qrcode')
 const {
   DOMPurify,
   LinkChecker,
@@ -29,7 +30,12 @@ router.post('/getLink', (req, res, next) => {
   const encryptor = new PhoneEncryptor();
   encryptor.phoneNumber = req.body.phoneNumber;
   encryptor.callback = (encryptedNumber) => {
-    res.json({ token: encryptedNumber });
+    QRCode.toDataURL(`https://ti-manager.com/feedback/${encryptedNumber}`, function (err, url) {
+      res.json({
+        token: encryptedNumber,
+        url
+      });
+    });
   };
   encryptor.encryptNumber();
 });
