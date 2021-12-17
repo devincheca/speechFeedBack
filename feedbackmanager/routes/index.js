@@ -30,8 +30,7 @@ router.post('/getLink', (req, res, next) => {
   const encryptor = new PhoneEncryptor();
   encryptor.phoneNumber = req.body.phoneNumber;
   encryptor.callback = (encryptedNumber) => {
-    // might need to adjust this for the domain and http vs. https
-    QRCode.toDataURL(encryptedNumber, function (err, url) {
+    QRCode.toDataURL(`https://ti-manager.com/feedback/${encryptedNumber}`, function (err, url) {
       res.json({
         token: encryptedNumber,
         url

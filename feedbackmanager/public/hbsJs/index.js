@@ -15,7 +15,15 @@ async function getLink() {
   document.getElementById('linkInstructions').style.display = 'flex';
   const linkInput = document.getElementById('linkInput');
   linkInput.value = window.localStorage.domain + '/feedback/' + res.token;
+  showQrCode(res.url);
   copyToClipboard(linkInput.value);
+}
+function showQrCode(url) {
+  const img = document.createElement('img');
+  img.src = url;
+  const imgDiv = document.getElementById('qrCodeImage');
+  imgDiv.appendChild(img);
+  imgDiv.style.display = 'block';
 }
 function toggleLoaderButton() {
   const feedbackButton = document.getElementById('feedbackButton');
