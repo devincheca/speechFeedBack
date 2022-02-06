@@ -1,7 +1,12 @@
 <div class="inputPhoneHeader">Input your phone number to receive anonymous feedback for your speech</div>
 <div>
   <div class="form-group">
-    <input type="number" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value" autofocus>
+    <input type="password" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value" autofocus>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" value="" onclick="togglePasswordView()">Show / Hide Phone Number</input>
+    </label>
   </div>
   <div class="form-group text-right" id="feedbackButtonDiv">
     <button type="button" class="btn btn-primary" onClick="getLink()" id="feedbackButton">Get Feedback Link</button>

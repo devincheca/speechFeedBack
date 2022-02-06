@@ -36,6 +36,10 @@ function toggleLoaderButton() {
     loaderButton.style.display = 'none';
   }
 }
+function togglePasswordView() {
+  const input = document.getElementById('phoneNumber');
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
 function copyToClipboard(text) {
   if (!text) {
     text = document.getElementById('linkInput').value;
