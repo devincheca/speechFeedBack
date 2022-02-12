@@ -3,12 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "feedback-ui": {
+    "feedback-angular": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "style": "sass"
-        },
         "@schematics/angular:application": {
           "strict": true
         }
@@ -20,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/feedback-ui",
+            "outputPath": "dist/feedback-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -31,7 +28,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -68,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "feedback-ui:build"
+            "browserTarget": "feedback-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "feedback-ui:build:production"
+              "browserTarget": "feedback-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "feedback-ui:build"
+            "browserTarget": "feedback-angular:build"
           }
         },
         "test": {
@@ -94,7 +91,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.css"
             ],
             "scripts": []
           }
@@ -116,16 +113,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "feedback-ui:serve"
+            "devServerTarget": "feedback-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "feedback-ui:serve:production"
+              "devServerTarget": "feedback-angular:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "feedback-ui"
+  "defaultProject": "feedback-angular"
 }
