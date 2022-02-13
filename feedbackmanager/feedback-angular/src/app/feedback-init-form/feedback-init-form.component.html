@@ -1,1 +1,39 @@
-<p>feedback-init-form works!</p>
+<div class="inputPhoneHeader">Input your phone number to receive anonymous feedback for your speech</div>
+<div>
+  <div class="form-group">
+    <input [type]="showPhoneNumber ? 'number' : 'password'" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" (keyup)="setPhoneNumber($event)" autofocus="">
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" value="" (click)="togglePasswordView()" [checked]="showPhoneNumber">Show / Hide Phone Number
+    </label>
+  </div>
+  <div class="form-group text-right" id="feedbackButtonDiv">
+    <button type="button" class="btn btn-primary" (click)="getLink()" id="feedbackButton">Get Feedback Link</button>
+    <button class="btn btn-primary" disabled="" style="display: none;" id="loaderButton">
+      <span class="spinner-border spinner-border-sm"></span>
+      Loading..
+    </button> 
+  </div>
+  <div class="form-group text-center" id="linkInstructions" style="display: none;">
+    Send the following link to club members you would like to receive speech feedback from:
+  </div>
+  <div class="copyPasteGroup">
+    <div class="form-group" id="linkDiv" style="display: none;">
+      <input type="text" disabled="" class="form-control" id="linkInput">
+    </div>
+    <div id="copyStatus"></div>
+    <div class="form-group text-right" id="copyButtonDiv" style="display: none;">
+      <button type="button" class="btn btn-primary" (click)="copyToClipboard()">
+        <span style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+          📄<span style="position: absolute; top: .25em; left: .25em">📄</span>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="form-group text-center" id="qrCodeImage" style="display: none;">
+    <div>For hybrid meetings:</div>
+  </div>
+</div>
+<div id="successDiv" style="color: green;"></div>
+<div id="failDiv" style="color: red;"></div>

@@ -22,4 +22,12 @@ describe('FeedbackInitFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(FeedbackInitFormComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('.inputPhoneHeader').textContent)
+      .toContain('Input your phone number to receive anonymous feedback for your speech');
+  });
 });
