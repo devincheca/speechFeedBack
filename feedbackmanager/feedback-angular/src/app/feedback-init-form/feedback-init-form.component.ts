@@ -20,7 +20,7 @@ export class FeedbackInitFormComponent implements OnInit {
 
   getLink(): void {
     const isNotANumber = parseInt(this.feedbackForm.phoneNumber);
-    if (isNotANumber) {
+    if (!isNotANumber) {
       this.error = 'Input a valid phone number (9999999999)'
       return;
     }
