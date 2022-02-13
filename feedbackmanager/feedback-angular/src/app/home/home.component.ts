@@ -9,6 +9,16 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
+  currentView: string = 'home';
+
+  getFeedbackLink(): void {
+    this.currentView = 'feedbackStart';
+  }
+
+  getVoteLink(): void {
+    this.currentView = 'voteStart';
+  }
+
   ngOnInit(): void {
   }
 
