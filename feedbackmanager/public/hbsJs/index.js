@@ -4,7 +4,7 @@ async function getLink() {
     return errorMessage('Input a phone number above to receive feedback');
   }
   toggleLoaderButton();
-  const res = await req({
+  const { token, url } = await req({
     data: { phoneNumber: this.state.phoneNumber },
     endpoint: '/getLink'
   });
@@ -14,8 +14,9 @@ async function getLink() {
   document.getElementById('copyButtonDiv').style.display = 'initial';
   document.getElementById('linkInstructions').style.display = 'flex';
   const linkInput = document.getElementById('linkInput');
-  linkInput.value = window.localStorage.domain + '/feedback/' + res.token;
-  showQrCode(res.url);
+  linkInput.value = window.localStorage.domain + '/feedback/' + token;
+  this.state.token = token;
+  showQrCode(url);
   copyToClipboard(linkInput.value);
 }
 function showQrCode(url) {
@@ -24,10 +25,23 @@ function showQrCode(url) {
   const imgDiv = document.getElementById('qrCodeImage');
   imgDiv.appendChild(img);
   imgDiv.style.display = 'block';
+  const testMessageDiv = document.getElementById('sendTestMessageDiv');
+  testMessageDiv.style.display = 'block';
 }
 function toggleLoaderButton() {
   const feedbackButton = document.getElementById('feedbackButton');
   const loaderButton = document.getElementById('loaderButton');
+  if (loaderButton.style.display === 'none') {
+    feedbackButton.style.display = 'none';
+    loaderButton.style.display = 'initial';
+  } else {
+    feedbackButton.style.display = 'initial';
+    loaderButton.style.display = 'none';
+  }
+}
+function toggleTestLoaderButton() {
+  const feedbackButton = document.getElementById('testFeedbackButton');
+  const loaderButton = document.getElementById('testFeedbackLoaderButton');
   if (loaderButton.style.display === 'none') {
     feedbackButton.style.display = 'none';
     loaderButton.style.display = 'initial';
@@ -73,4 +87,20 @@ function updateCopyStatus() {
   const copyStatus = document.getElementById('copyStatus');
   copyStatus.innerHTML = 'Copied!';
   setTimeout(() => { copyStatus.innerHTML = ''; }, 4000);
+}
+async function sendTestFeedback() {
+  toggleTestLoaderButton();
+  const res = await req({
+    data: {
+      feedback: 'This message is a test. If you receive this message then the link and QR code are ready for you to send so fellow club members can provide you with their feedback.',
+      token: this.state.token
+    },
+    endpoint: '/sendFeedback'
+  });
+  toggleTestLoaderButton();
+  if (res.isSent) {
+    successMessage('Your test message was successfully sent');
+  } else {
+    errorMessage('Oops. Something went wrong. Refresh the page and try again.');
+  }
 }
