@@ -3,7 +3,7 @@
   <div class="form-group">
     <input type="password" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value" autofocus>
   </div>
-  <div class="form-check">
+  <div class="form-check" style="margin-top: .25em; margin-bottom: .25em;">
     <label class="form-check-label">
       <input type="checkbox" class="form-check-input" value="" onclick="togglePasswordView()">Show / Hide Phone Number</input>
     </label>
@@ -33,6 +33,13 @@
   </div>
   <div class="form-group text-center" id="qrCodeImage" style="display: none;">
     <div>For hybrid meetings:</div>
+  </div>
+  <div class="form-group text-right" id="sendTestMessageDiv" style="display: none;">
+    <button type="button" class="btn btn-primary" onClick="sendTestFeedback()" id="testFeedbackButton">Send Test Message</button>
+    <button class="btn btn-primary" disabled style="display: none;" id="testFeedbackLoaderButton">
+      <span class="spinner-border spinner-border-sm"></span>
+      Loading..
+    </button> 
   </div>
 </div>
 <div id="successDiv" style="color: green;"></div>
