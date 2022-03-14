@@ -1,11 +1,34 @@
 <div>
-  <div class="form-group text-center" id="feedbackButtonDiv">
-    <a href="/feedback">
-      <button type="button" class="btn btn-primary" onClick="getLink()" id="feedbackButton">Feedback System</button>
-    </a>
-    <a href="/vote">
-      <button type="button" class="btn btn-primary" onClick="getLink()" id="feedbackButton">Voting System</button>
-    </a>
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#" onclick="showFeedbackPage()" id="feedbackNavLink">Feedback System</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" onclick="showVotePage()" id="voteNavLink">Voting System</a>
+    </li>
+  </ul>
+  <div id="feedbackDiv" style="display: none;">
+    <ul class="vertical-margin">
+      <li class="vertical-margin">Send feedback for Toastmasters speeches anonymously via your phone (US only)</li>
+      <li class="vertical-margin">Full support for hybrid meetings as well (via QR code support)</li>
+      <li class="vertical-margin">We do not store any data; this is a private, anonymous service</li>
+    </ul>
+    <div class="text-right">
+      <a href="/feedback">
+        <button type="button" class="btn btn-primary" id="feedbackButton">Feedback System</button>
+      </a>
+    </div>
+  </div>
+  <div id="voteDiv" class="vertical-margin" style="display: none;">
+    <ul class="vertical-margin">
+      <li class="vertical-margin">Tally votes for best table topics response</li>
+      <li class="vertical-margin">We do not store any data; this is a private, anonymous service</li>
+    </ul>
+    <div class="text-right">
+      <a href="/vote">
+        <button type="button" class="btn btn-primary" id="feedbackButton">Voting System</button>
+      </a>
+    </div>
   </div>
 </div>
 <script src='/hbsJs/homepage.js'></script>
