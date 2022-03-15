@@ -1,4 +1,10 @@
 var state = {};
+window.onload = () => {
+  if (isTutorial()) {
+    Array.from(document.getElementsByClassName('inputPhoneHeader'))
+      .map(div => div.innerHTML += '</br> (pretend you just gave a speech to your club)');
+  }
+};
 async function getLink() {
   if (!this.state.phoneNumber) {
     return errorMessage('Input a phone number above to receive feedback');
@@ -18,6 +24,9 @@ async function getLink() {
   this.state.token = token;
   showQrCode(url);
   copyToClipboard(linkInput.value);
+  if (isTutorial()) {
+    document.getElementById('linkInstructions').innerHTML += '</br> (you can paste the link below into another tab on your browser to try it for yourself, or click the "Send Test Message" button below)'
+  }
 }
 function showQrCode(url) {
   const img = document.createElement('img');
@@ -103,4 +112,7 @@ async function sendTestFeedback() {
   } else {
     errorMessage('Oops. Something went wrong. Refresh the page and try again.');
   }
+}
+function isTutorial() {
+  return location.href.includes('isTutorial=true');
 }
