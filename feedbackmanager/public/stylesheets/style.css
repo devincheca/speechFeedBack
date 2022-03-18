@@ -46,3 +46,7 @@ a.home-nav-link-focus {
   border-radius: 5em;
   color: white;
 }
+.phone-input-div input {
+  display: inline;
+  width: 25%;
+}

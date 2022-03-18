@@ -6,12 +6,13 @@ window.onload = () => {
   }
 };
 async function getLink() {
-  if (!this.state.phoneNumber) {
+  const { areaCode, firstThree, lastFour } = state;
+  if (!areaCode || !firstThree || !lastFour) {
     return errorMessage('Input a phone number above to receive feedback');
   }
   toggleLoaderButton();
   const { token, url } = await req({
-    data: { phoneNumber: this.state.phoneNumber },
+    data: { phoneNumber: areaCode + firstThree + lastFour },
     endpoint: '/getLink'
   });
   toggleLoaderButton();
@@ -60,8 +61,12 @@ function toggleTestLoaderButton() {
   }
 }
 function togglePasswordView() {
-  const input = document.getElementById('phoneNumber');
-  input.type = input.type === 'password' ? 'text' : 'password';
+  const areaCode = document.getElementById('areaCode');
+  areaCode.type = areaCode.type === 'password' ? 'text' : 'password';
+  const firstThree = document.getElementById('firstThree');
+  firstThree.type = firstThree.type === 'password' ? 'text' : 'password';
+  const lastFour = document.getElementById('lastFour');
+  lastFour.type = lastFour.type === 'password' ? 'text' : 'password';
 }
 function copyToClipboard(text) {
   if (!text) {
@@ -115,4 +120,15 @@ async function sendTestFeedback() {
 }
 function isTutorial() {
   return location.href.includes('isTutorial=true');
+}
+function nextFocus(id) {
+  if (id === 'areaCode' && state.areaCode.length === 3) {
+    document.getElementById('firstThree').focus();
+  }
+  if (id === 'firstThree' && state.firstThree.length === 3) {
+    document.getElementById('lastFour').focus();
+  }
+  if (id === 'lastFour' && state.lastFour.length === 4) {
+    document.getElementById('feedbackButton').focus();
+  }
 }
