@@ -23,10 +23,10 @@ async function getLink() {
   linkInput.value = window.localStorage.domain + '/feedback/' + token;
   this.state.token = token;
   showQrCode(url);
-  copyToClipboard(linkInput.value);
   if (isTutorial()) {
     document.getElementById('linkInstructions').innerHTML += '</br> (you can paste the link below into another tab on your browser to try it for yourself, or click the "Send Test Message" button below)'
   }
+  copyToClipboard(linkInput.value);
 }
 function showQrCode(url) {
   const img = document.createElement('img');
