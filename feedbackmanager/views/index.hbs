@@ -1,7 +1,12 @@
-<div class="inputPhoneHeader">Input your phone number to receive anonymous feedback for your speech</div>
+<div class="inputPhoneHeader">Input your phone number (10 digits, US only) to receive anonymous feedback for your speech</div>
 <div>
-  <div class="form-group">
-    <input type="password" class="form-control" id="phoneNumber" placeholder="Input Phone Number (10 digits)" onKeyUp="state.phoneNumber = this.value" autofocus>
+  <div class="form-group phone-input-div text-center">
+    <span>1(</span>
+    <input type="password" class="form-control text-center" id="areaCode" placeholder="999" onKeyUp="state.areaCode = this.value; nextFocus('areaCode');" autofocus>
+    <span>)</span>
+    <input type="password" class="form-control text-center" id="firstThree" placeholder="999" onKeyUp="state.firstThree = this.value; nextFocus('firstThree');">
+    <span>-</span>
+    <input type="password" class="form-control text-center" id="lastFour" placeholder="9999" onKeyUp="state.lastFour = this.value; nextFocus('lastFour');">
   </div>
   <div class="form-check" style="margin-top: .25em; margin-bottom: .25em;">
     <label class="form-check-label">
