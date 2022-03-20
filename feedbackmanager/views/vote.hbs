@@ -18,10 +18,12 @@
     </div>
     -->
   </div>
+    <!--
   <div class="form-group text-center" id="qrCodeImage">
     <div>For hybrid meetings:</div>
     <div style="display: none;" id="qrUrl">{{ qrCode }}</div>
   </div>
+    -->
 </div>
 <div id="voteTallyDiv"></div>
 <div id="successDiv" style="color: green;"></div>
@@ -40,7 +42,7 @@
     document.getElementById('linkInput').value = fullLink;
     localStorage.originator = document.getElementById('originatorValueDiv').innerHTML.toString();
     pollLink(fullLink);
-    showQrCode(linkValue);
+    // showQrCode(linkValue);
   };
   async function showQrCode(link) {
     const { qrCode } = await req({
