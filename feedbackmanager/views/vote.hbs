@@ -35,16 +35,20 @@
     const pageTitle = 'Voting System';
     document.getElementById('page-title').innerHTML = pageTitle;
     Array.from(document.getElementsByTagName('title')).map(title => title.innerHTML = pageTitle);
-    const fullLink = window.localStorage.domain + '/castVote/' + document.getElementById('linkValueDiv').innerHTML.toString();
+    const linkValue = document.getElementById('linkValueDiv').innerHTML.toString();
+    const fullLink = window.localStorage.domain + '/castVote/' + linkValue;
     document.getElementById('linkInput').value = fullLink;
     localStorage.originator = document.getElementById('originatorValueDiv').innerHTML.toString();
     pollLink(fullLink);
-    showQrCode();
+    showQrCode(linkValue);
   };
-  function showQrCode() {
-    const url = document.getElementById('qrUrl').innerHTML;
+  async function showQrCode(link) {
+    const { qrCode } = await req({
+      data: {},
+      endpoint: `/voteQr/${link}`
+    });
     const img = document.createElement('img');
-    img.src = url;
+    img.src = qrCode;
     const imgDiv = document.getElementById('qrCodeImage');
     imgDiv.appendChild(img);
     imgDiv.style.display = 'block';

@@ -72,6 +72,16 @@ router.get('/vote', async (req, res, next) => {
   });
 });
 
+router.post('/voteQr/:link', async (req, res, next) => {
+  QRCode.toDataURL(`https://ti-manager.com/castVote/${req.params.link}`, function (err, qrCode) {
+    if (err) {
+      console.trace(err);
+      res.json({ err, qrCode: '' });
+    }
+    res.json({ qrCode });
+  });
+});
+
 router.post('/getVotes', async (req, res, next) => {
   const votes = new VoteChecker();
   votes.link = req.body.link;
