@@ -63,7 +63,13 @@ router.post('/sendFeedback', async (req, res, next) => {
 router.get('/vote', async (req, res, next) => {
   const voteLink = new VoteLink();
   const { linkId: link, originator } = await voteLink.getNewVotingLink();
-  res.render('vote', { title: 'Express', link, originator });
+  QRCode.toDataURL(`https://ti-manager.com/castVote/${link}`, function (err, url) {
+    if (err) {
+      console.trace(err);
+      res.render('vote', { title: 'Express', link, originator });
+    }
+    res.render('vote', { title: 'Express', link, originator, qrCode: url });
+  });
 });
 
 router.post('/getVotes', async (req, res, next) => {
