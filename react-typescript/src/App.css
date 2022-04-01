@@ -14,7 +14,10 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-image: url(https://ti-manager.com/images/homeBgSmaller.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,6 +25,13 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-header-div {
+  background-color: white;
+  border-radius: .1em;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  width: 70%;
 }
 
 .App-link {
@@ -35,4 +45,48 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.topBarDiv {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25em;
+  margin: 1em 0 2em 0;
+  padding: 0 1em 0 1em;
+}
+
+a {
+  color: #00B7FF;
+}
+button {
+  box-shadow: 0px 0px 3px black;
+}
+#errorDiv {
+  color: red;
+}
+.inputPhoneHeader {
+  text-align: center;
+  padding: 0 2em 0 2em;
+  margin: 2em 0 2em 0;
+}
+.card {
+  padding: 1em;
+  margin-top: 5em;
+}
+.copyPasteGroup {
+  display: flex;
+  justify-content: space-around;
+}
+.vertical-margin {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+a.home-nav-link-focus {
+  background-color: grey;
+  border-radius: 5em;
+  color: white;
+}
+.phone-input-div input {
+  display: inline;
+  width: 25%;
 }
