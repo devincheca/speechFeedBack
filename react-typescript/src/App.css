@@ -24,7 +24,6 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-header-div {
@@ -89,4 +88,22 @@ a.home-nav-link-focus {
 .phone-input-div input {
   display: inline;
   width: 25%;
+}
+#feedbackDiv {
+  font-size: .9rem;
+  line-height: 1rem;
+  margin: .25em;
+  text-align: left;
+}
+#voteDiv {
+  font-size: .9rem;
+  line-height: 1rem;
+  margin: .25em;
+  text-align: left;
+}
+.nav {
+  margin: .25em;
+}
+.margin-25 {
+  margin: .25em;
 }
