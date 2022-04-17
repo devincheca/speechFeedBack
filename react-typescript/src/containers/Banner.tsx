@@ -13,7 +13,7 @@ export default function Banner() {
           src="https://localbz.co/Dreambuilders/logo.png"
         />
       </div>
-      <div style={{ textAlign: 'right' }}>Toastmasters Hybrid Meeting Management System</div>
+      <div style={{ textAlign: 'right' }}>Toastmasters Hybrid Meeting System</div>
     </div>
   );
 }
