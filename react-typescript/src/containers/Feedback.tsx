@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import {
-  FeedbackBullets,
-  VoteBullets,
-} from './index';
 
 export default function Feedback() {
   const [areaCode, setAreaCode] = useState('');
@@ -17,7 +13,7 @@ export default function Feedback() {
       <div className="inputPhoneHeader">Input your phone number (10 digits, US only) to receive anonymous feedback for your speech</div>
       <div>
         <div className="form-group phone-input-div text-center">
-          {/* <span>1(</span> */}
+          <span>1(</span>
           <input
             type="password"
             className="form-control text-center"
@@ -25,7 +21,7 @@ export default function Feedback() {
             placeholder="999"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setAreaCode(event.target.value); nextFocus('areaCode'); }}
           />
-          {/* <span>)</span> */}
+          <span>)</span>
           <input
             type="password"
             className="form-control text-center"
@@ -33,7 +29,7 @@ export default function Feedback() {
             placeholder="999"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setFirstThree(event.target.value); nextFocus('firstThree'); }}
           />
-          {/* <span>-</span> */}
+          <span>-</span>
           <input
             type="password"
             className="form-control text-center"
@@ -43,10 +39,10 @@ export default function Feedback() {
           />
         </div>
         <div className="form-check" style={{ marginTop: '.25em', marginBottom: '.25em' }}>
-          <label className="form-check-label">
-            <input type="checkbox" className="form-check-input" value="" onClick={() => console.log('togglePasswordView()')} />Show Phone Number
-            {/* <input type="checkbox" className="form-check-input" value="" onClick={() => console.log('togglePasswordView()')}>Show / Hide Phone Number</input> */}
-          </label>
+          <div className="form-check-label">
+            <input type="checkbox" className="form-check-input" value="" onClick={() => console.log('togglePasswordView()')} />
+            <span style={{ verticalAlign: 'middle' }}>Show Phone Number</span>
+          </div>
         </div>
         <div className="form-group text-right" id="feedbackButtonDiv">
           <button type="button" className="btn btn-primary" onClick={() => console.log('getLink()')} id="feedbackButton">Get Feedback Link</button>

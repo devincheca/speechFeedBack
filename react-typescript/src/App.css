@@ -31,6 +31,7 @@
   border-radius: .1em;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
   max-width: 70%;
+  padding: .25em;
 }
 
 .App-link {
@@ -64,9 +65,13 @@ button {
   color: red;
 }
 .inputPhoneHeader {
+  font-size: .75em;
   text-align: center;
   padding: 0 2em 0 2em;
   margin: 2em 0 2em 0;
+}
+.form-check-label {
+  font-size: .5em;
 }
 .card {
   padding: 1em;

@@ -5,6 +5,7 @@ export default function Banner() {
     <div className="topBarDiv" style={{ color: 'black', fontSize: '.75em' }}>
       <div>
         <img
+          alt="TI"
           style={{
             verticalAlign: 'middle',
             borderStyle: 'none',
