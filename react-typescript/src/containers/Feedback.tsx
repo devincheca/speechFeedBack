@@ -1,21 +1,32 @@
 import React, { useState, useRef } from 'react';
 import PhoneNumberInput, { PhoneNumber } from '../components/PhoneNumberInput';
+import { req } from '../helpers/req';
 
 export default function Feedback() {
   const [isLoading, setIsLoading] = useState(false);
   const [isNumberHidden, setIsNumberHidden] = useState(true);
   const [phone, setPhone] = useState<PhoneNumber>();
   const [error, setError] = useState('');
+  const [link, setLink] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   const getLinkButton = useRef<HTMLButtonElement>(null);
 
   const isPhoneValid = () => phone && parseInt(phone.areaCode) && parseInt(phone.firstThree) && parseInt(phone.lastFour);
 
-  const getLink = () => {
+  const getLink = async () => {
     if (isPhoneValid()) {
       setIsLoading(true);
       // send the network call here and then deploy to feedback.ti-manager.com so I don't have to refactor everything immediately
       // voting can be via hyperlink and then feedback will work via the API
+      if (phone) {
+        const { token, url } = await req({
+          data: { phoneNumber: phone.areaCode + phone.firstThree + phone.lastFour },
+          endpoint: '/getLink'
+        });
+        setLink(`https://ti-manager.com/feedback/${token}`);
+        setImageUrl(url);
+      }
       setIsLoading(false);
     } else {
       setError('Please enter a valid phone number (10 digits, US only)');
@@ -45,13 +56,17 @@ export default function Feedback() {
             </button>
           }
         </div>
-        <div className="form-group text-center vertical-margin" style={{ display: 'none' }}>
-          Send the following link to club members you would like to receive speech feedback from:
-        </div>
-        <div className="copyPasteGroup">
-          <div className="form-group" style={{ display: 'none' }}>
-            <input type="text" disabled className="form-control" />
+        { link &&
+          <div className="form-group text-center vertical-margin" style={{ display: 'none' }}>
+            Send the following link to club members you would like to receive speech feedback from:
           </div>
+        }
+        <div className="copyPasteGroup">
+          { link &&
+            <div className="form-group">
+              <input type="text" disabled className="form-control" value={link} />
+            </div>
+          }
           <div></div>
           <div className="form-group text-right" style={{ display: 'none' }}>
             <button type="button" className="btn btn-primary" onClick={() => console.log('copyToClipboard()')}>
@@ -61,9 +76,12 @@ export default function Feedback() {
             </button>
           </div>
         </div>
-        <div className="form-group text-center" style={{ display: 'none' }}>
-          <div>For hybrid meetings:</div>
-        </div>
+        { imageUrl &&
+          <div className="form-group text-center">
+            <div>For hybrid meetings:</div>
+            <img alt="QR Code" src={imageUrl} />
+          </div>
+        }
         <div className="form-group text-right" style={{ display: 'none' }}>
           { !isLoading && <button type="button" className="btn btn-primary" onClick={() => console.log('sendTestFeedback()')}>Send Test Message</button> }
           { isLoading &&
