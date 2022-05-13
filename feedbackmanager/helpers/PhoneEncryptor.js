@@ -33,7 +33,7 @@ class PhoneEncryptor {
           };
           await dynamodb.putItem(params).promise();
           this.callback(encrypted);
-          this.encryptedNumber = encrypted;
+          encrypted = null;
         });
       });
     }
