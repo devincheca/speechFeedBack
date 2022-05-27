@@ -22,6 +22,7 @@ class PhoneDecryptor {
       let decrypted = decipher.update(this.encryptedNumber, 'hex', 'utf8');
       decrypted += decipher.final('utf8');
       this.phoneNumber = decrypted;
+      decrypted = null;
       return this.phoneNumber;
     }
     catch(error) { console.trace(error); }
