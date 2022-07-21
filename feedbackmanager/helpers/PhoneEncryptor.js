@@ -1,10 +1,12 @@
+const v1 = require('uuid');
+
 const AWS = require('aws-sdk');
 AWS.config.update({region:'us-east-1'});
 const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
-const crypto = require('crypto');
-const algorithm = 'aes-192-cbc';
-const password = '6826691700';
+// const crypto = require('crypto');
+// const algorithm = 'aes-192-cbc';
+// const password = '6826691700';
 
 class PhoneEncryptor {
   constructor() {
@@ -13,6 +15,20 @@ class PhoneEncryptor {
     this.phoneNumber = '';
   }
   async encryptNumber() {
+    const encrypted = v1();
+    const params = {
+      Item: {
+        'tm-anon-links_id': { S: encrypted },
+        'key': { B: encrypted },
+        'iv': { B: Buffer.from(encrypted) },
+        'phoneNumber': { S: this.phoneNumber },
+        'timeStamp': { N: (Math.floor(Date.now() / 1000) + (24*60*60)).toString() }
+      },
+      TableName: 'tm-anon-links'
+    };
+    await dynamodb.putItem(params).promise();
+    this.callback(encrypted);
+    /*
     try {
       crypto.scrypt(password, 'salt', 24, (err, key) => {
         if (err) throw err;
@@ -38,6 +54,7 @@ class PhoneEncryptor {
       });
     }
     catch(error) { console.trace(error); }
+    */
   }
 }
 

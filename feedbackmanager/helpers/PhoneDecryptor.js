@@ -18,11 +18,14 @@ class PhoneDecryptor {
       if (!dbItem) {
         return '';
       }
+      this.phoneNumber = this.res.Item.phoneNumber.S;
+      /*
       const decipher = crypto.createDecipheriv(algorithm, this.res.Item.key.B, this.res.Item.iv.B);
       let decrypted = decipher.update(this.encryptedNumber, 'hex', 'utf8');
       decrypted += decipher.final('utf8');
       this.phoneNumber = decrypted;
       decrypted = null;
+      */
       return this.phoneNumber;
     }
     catch(error) { console.trace(error); }
