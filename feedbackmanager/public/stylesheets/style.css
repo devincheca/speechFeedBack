@@ -50,3 +50,9 @@ a.home-nav-link-focus {
   display: inline;
   width: 25%;
 }
+.coffee {
+  height: 5vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
