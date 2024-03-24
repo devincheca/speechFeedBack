@@ -16,7 +16,7 @@ export default function PhoneNumberInput(props: PhoneNumberInputPropTypes) {
 
   const [areaCode, setAreaCode] = useState('');
   const [firstThree, setFirstThree] = useState('');
-  const [lastFour, setLastFour] = useState('')
+  const [ , setLastFour] = useState('')
 
   const firstThreeRef = useRef<HTMLInputElement>(null);
   const lastFourRef = useRef<HTMLInputElement>(null);
@@ -24,7 +24,7 @@ export default function PhoneNumberInput(props: PhoneNumberInputPropTypes) {
   const nextFocus = (placement: string, digits: string) => {
     if (placement === 'areaCode' && digits.length === 3) return firstThreeRef && firstThreeRef.current && firstThreeRef.current.focus();
     if (placement === 'firstThree' && digits.length === 3) return lastFourRef && lastFourRef.current && lastFourRef.current.focus();
-    if (placement === 'lastFour' && digits.length === 4) return focusNext && focusNext({ areaCode, firstThree, lastFour });
+    if (placement === 'lastFour' && digits.length === 4) return focusNext && focusNext({ areaCode, firstThree, lastFour: digits });
   };
 
   return (

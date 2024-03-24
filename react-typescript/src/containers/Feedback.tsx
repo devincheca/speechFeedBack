@@ -1,6 +1,14 @@
 import React, { useState, useRef } from 'react';
+import { v1 as uuidv1 } from 'uuid';
+
 import PhoneNumberInput, { PhoneNumber } from '../components/PhoneNumberInput';
 import { req } from '../helpers/req';
+
+// Helpers
+import { generateTimeStamp } from '../helpers/timeStamp';
+
+// Constant
+import { POST_ACTIONS, TABLE_NAMES } from '../constants';
 
 export default function Feedback() {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,13 +25,23 @@ export default function Feedback() {
   const getLink = async () => {
     if (isPhoneValid()) {
       setIsLoading(true);
-      // send the network call here and then deploy to feedback.ti-manager.com so I don't have to refactor everything immediately
       // voting can be via hyperlink and then feedback will work via the API
       if (phone) {
+        const Id = uuidv1();
         const { token, url } = await req({
-          data: { phoneNumber: phone.areaCode + phone.firstThree + phone.lastFour },
+          data: {
+            TableName: TABLE_NAMES.FEEDBACK_LINKS,
+            Item: {
+              Action: POST_ACTIONS.CREATE_WITH_PHONE,
+              PhoneNumber: phone.areaCode + phone.firstThree + phone.lastFour,
+              // this now works as intended on AWS lambda for the requests
+              // next step is integration with SNS as feedback comes in and the link is provided in the UI
+              // update TTL with Pascal case TimeStamp
+              TimeStamp: generateTimeStamp(),
+              Id,
+            },
+          },
         });
-        console.log('need to go to new API here: ', );
         setLink(`https://ti-manager.com/feedback/${token}`);
         setImageUrl(url);
       }

@@ -1,0 +1,3 @@
+export const POST_ACTIONS = {
+  CREATE_WITH_PHONE: 'CREATE_WITH_PHONE',
+};
