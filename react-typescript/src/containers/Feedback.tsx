@@ -22,8 +22,8 @@ export default function Feedback() {
       if (phone) {
         const { token, url } = await req({
           data: { phoneNumber: phone.areaCode + phone.firstThree + phone.lastFour },
-          endpoint: '/getLink'
         });
+        console.log('need to go to new API here: ', );
         setLink(`https://ti-manager.com/feedback/${token}`);
         setImageUrl(url);
       }

@@ -5,6 +5,9 @@ import {
   VoteBullets,
 } from './index';
 
+// Constants
+import { NAV_PAGES } from '../constants';
+
 export interface homeProps {
   onPageNav: (pageName: string) => void;
 };
@@ -23,7 +26,7 @@ export default function Home(props: homeProps) {
     <>
       <ul className="nav">
         <li className="nav-item">
-          <button className={getFeedbackBtnClass()} style={{ cursor: 'pointer' }} onClick={() => showFeedbackPage(true)} id="feedbackNavLink">Feedback</button>
+          <button className={getFeedbackBtnClass()} style={{ cursor: 'pointer' }} onClick={() => onPageNav(NAV_PAGES.FEEDBACK)} id="feedbackNavLink">{ NAV_PAGES.FEEDBACK } </button>
         </li>
         <li className="nav-item">
           <button className={getVotingBtnClass()} style={{ cursor: 'pointer' }} onClick={() => showFeedbackPage(false)} id="voteNavLink">Voting</button>
@@ -37,8 +40,8 @@ export default function Home(props: homeProps) {
               type="button"
               className="btn btn-primary"
               id="feedbackButton"
-              onClick={() => onPageNav('Feedback')}>
-                Feedback System
+              onClick={() => onPageNav(NAV_PAGES.FEEDBACK)}>
+                { NAV_PAGES.FEEDBACK } System
             </button>
           </div>
           <div className="vertical-margin text-right">
