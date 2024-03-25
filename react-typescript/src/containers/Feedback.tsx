@@ -1,14 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { v1 as uuidv1 } from 'uuid';
 
-import PhoneNumberInput, { PhoneNumber } from '../components/PhoneNumberInput';
-import { req } from '../helpers/req';
+// Requests
+import { createWithPhone } from '../requests/createWithPhone';
 
-// Helpers
-import { generateTimeStamp } from '../helpers/timeStamp';
+// Components
+import PhoneNumberInput from '../components/PhoneNumberInput';
 
-// Constant
-import { POST_ACTIONS, TABLE_NAMES } from '../constants';
+// Types
+import { PhoneNumber } from '../types/PhoneNumber';
 
 export default function Feedback() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,35 +16,19 @@ export default function Feedback() {
   const [phone, setPhone] = useState<PhoneNumber>();
   const [error, setError] = useState('');
   const [link, setLink] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [qrCodeImageUrl] = useState('');
+  const [Id] = useState(uuidv1());
 
   const getLinkButton = useRef<HTMLButtonElement>(null);
 
   const isPhoneValid = () => phone && parseInt(phone.areaCode) && parseInt(phone.firstThree) && parseInt(phone.lastFour);
 
   const getLink = async () => {
-    if (isPhoneValid()) {
+    if (isPhoneValid() && phone) {
       setIsLoading(true);
-      // voting can be via hyperlink and then feedback will work via the API
-      if (phone) {
-        const Id = uuidv1();
-        const { token, url } = await req({
-          data: {
-            TableName: TABLE_NAMES.FEEDBACK_LINKS,
-            Item: {
-              Action: POST_ACTIONS.CREATE_WITH_PHONE,
-              PhoneNumber: phone.areaCode + phone.firstThree + phone.lastFour,
-              // this now works as intended on AWS lambda for the requests
-              // next step is integration with SNS as feedback comes in and the link is provided in the UI
-              // update TTL with Pascal case TimeStamp
-              TimeStamp: generateTimeStamp(),
-              Id,
-            },
-          },
-        });
-        setLink(`https://ti-manager.com/feedback/${token}`);
-        setImageUrl(url);
-      }
+      // update TTL with Pascal case TimeStamp
+      await createWithPhone(phone, Id);
+      setLink(`https://ti-manager.com/feedback/${Id}`);
       setIsLoading(false);
     } else {
       setError('Please enter a valid phone number (10 digits, US only)');
@@ -75,7 +59,7 @@ export default function Feedback() {
           }
         </div>
         { link &&
-          <div className="form-group text-center vertical-margin" style={{ display: 'none' }}>
+          <div className="form-group text-center vertical-margin link-font">
             Send the following link to club members you would like to receive speech feedback from:
           </div>
         }
@@ -86,18 +70,20 @@ export default function Feedback() {
             </div>
           }
           <div></div>
-          <div className="form-group text-right" style={{ display: 'none' }}>
-            <button type="button" className="btn btn-primary" onClick={() => console.log('copyToClipboard()')}>
-              <span style={{ fontSize: '.875em', marginRight: '.125em', position: 'relative', top: '-.25em', left: '-.125em' }}>
-                📄<span style={{ position: 'absolute', top: '.25em', left: '.25em' }}>📄</span>
-              </span>
-            </button>
-          </div>
+          { link &&
+            <div className="form-group text-right">
+              <button type="button" className="btn btn-primary" onClick={() => console.log('copyToClipboard()')}>
+                <span style={{ fontSize: '.875em', marginRight: '.125em', position: 'relative', top: '-.25em', left: '-.125em' }}>
+                  📄<span style={{ position: 'absolute', top: '.25em', left: '.25em' }}>📄</span>
+                </span>
+              </button>
+            </div>
+          }
         </div>
-        { imageUrl &&
+        { qrCodeImageUrl &&
           <div className="form-group text-center">
             <div>For hybrid meetings:</div>
-            <img alt="QR Code" src={imageUrl} />
+            <img alt="QR Code" src={qrCodeImageUrl} />
           </div>
         }
         <div className="form-group text-right" style={{ display: 'none' }}>

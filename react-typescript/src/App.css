@@ -73,6 +73,9 @@ button {
 .form-check-label {
   font-size: .5em;
 }
+.link-font {
+  font-size: .65em;
+}
 .card {
   padding: 1em;
   margin-top: 5em;

@@ -1,10 +1,7 @@
 import React, { useState, useRef } from 'react';
 
-export interface PhoneNumber {
-  areaCode: string;
-  firstThree: string;
-  lastFour: string;
-};
+// Types
+import { PhoneNumber } from '../types/PhoneNumber';
 
 export interface PhoneNumberInputPropTypes {
   focusNext: (phoneNumber: PhoneNumber) => void;
