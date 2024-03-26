@@ -5,10 +5,17 @@ import { v1 as uuidv1 } from 'uuid';
 import { createWithPhone } from '../requests/createWithPhone';
 
 // Components
-import PhoneNumberInput from '../components/PhoneNumberInput';
+import {
+  CopyButton,
+  LoadingButton,
+  PhoneNumberInput,
+} from '../components';
 
 // Types
 import { PhoneNumber } from '../types/PhoneNumber';
+
+// Helpers
+import { copyToClipboard } from '../helpers/copyToClipboard';
 
 export default function Feedback() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +25,23 @@ export default function Feedback() {
   const [link, setLink] = useState('');
   const [qrCodeImageUrl] = useState('');
   const [Id] = useState(uuidv1());
+  const [copyStatus, setCopyStatus] = useState('');
 
   const getLinkButton = useRef<HTMLButtonElement>(null);
 
+  const linkBox = useRef<HTMLInputElement>(null);
+
   const isPhoneValid = () => phone && parseInt(phone.areaCode) && parseInt(phone.firstThree) && parseInt(phone.lastFour);
+
+  const copyLink = () => {
+    const result = copyToClipboard(linkBox);
+
+    result.isFailedCopy
+      ? setCopyStatus('Failed')
+      : setCopyStatus('Copied');
+
+    setTimeout(() => setCopyStatus(''), 3000);
+  };
 
   const getLink = async () => {
     if (isPhoneValid() && phone) {
@@ -30,6 +50,7 @@ export default function Feedback() {
       await createWithPhone(phone, Id);
       setLink(`https://ti-manager.com/feedback/${Id}`);
       setIsLoading(false);
+      copyLink();
     } else {
       setError('Please enter a valid phone number (10 digits, US only)');
     }
@@ -51,12 +72,7 @@ export default function Feedback() {
         </div>
         <div className="form-group text-right">
           { !isLoading && <button ref={getLinkButton} type="button" className="btn btn-primary" onClick={() => getLink()}>Get Feedback Link</button> }
-          { isLoading &&
-            <button className="btn btn-primary" disabled>
-              <span className="spinner-border spinner-border-sm"></span>
-              Loading..
-            </button>
-          }
+          { isLoading && <LoadingButton /> }
         </div>
         { link &&
           <div className="form-group text-center vertical-margin link-font">
@@ -66,19 +82,11 @@ export default function Feedback() {
         <div className="copyPasteGroup">
           { link &&
             <div className="form-group">
-              <input type="text" disabled className="form-control" value={link} />
+              <input type="text" disabled className="form-control" value={link} ref={linkBox} />
             </div>
           }
           <div></div>
-          { link &&
-            <div className="form-group text-right">
-              <button type="button" className="btn btn-primary" onClick={() => console.log('copyToClipboard()')}>
-                <span style={{ fontSize: '.875em', marginRight: '.125em', position: 'relative', top: '-.25em', left: '-.125em' }}>
-                  📄<span style={{ position: 'absolute', top: '.25em', left: '.25em' }}>📄</span>
-                </span>
-              </button>
-            </div>
-          }
+          { link && <CopyButton copy={() => copyLink()} copyStatus={copyStatus} /> }
         </div>
         { qrCodeImageUrl &&
           <div className="form-group text-center">
@@ -88,12 +96,7 @@ export default function Feedback() {
         }
         <div className="form-group text-right" style={{ display: 'none' }}>
           { !isLoading && <button type="button" className="btn btn-primary" onClick={() => console.log('sendTestFeedback()')}>Send Test Message</button> }
-          { isLoading &&
-            <button className="btn btn-primary" disabled>
-              <span className="spinner-border spinner-border-sm"></span>
-              Loading..
-            </button>
-          }
+          { isLoading && <LoadingButton /> }
         </div>
       </div>
       <div style={{ color: 'green' }}></div>
