@@ -9,6 +9,7 @@ import {
   CopyButton,
   LoadingButton,
   PhoneNumberInput,
+  QrCode,
 } from '../components';
 
 // Types
@@ -46,7 +47,6 @@ export default function Feedback() {
   const getLink = async () => {
     if (isPhoneValid() && phone) {
       setIsLoading(true);
-      // update TTL with Pascal case TimeStamp
       await createWithPhone(phone, Id);
       setLink(`https://ti-manager.com/feedback/${Id}`);
       setIsLoading(false);
@@ -88,18 +88,12 @@ export default function Feedback() {
           <div></div>
           { link && <CopyButton copy={() => copyLink()} copyStatus={copyStatus} /> }
         </div>
-        { qrCodeImageUrl &&
-          <div className="form-group text-center">
-            <div>For hybrid meetings:</div>
-            <img alt="QR Code" src={qrCodeImageUrl} />
-          </div>
-        }
+        { qrCodeImageUrl && <QrCode qrCodeImageUrl={qrCodeImageUrl} /> }
         <div className="form-group text-right" style={{ display: 'none' }}>
-          { !isLoading && <button type="button" className="btn btn-primary" onClick={() => console.log('sendTestFeedback()')}>Send Test Message</button> }
+          { !isLoading && <button type="button" className="btn btn-primary">Send Test Message</button> }
           { isLoading && <LoadingButton /> }
         </div>
       </div>
-      <div style={{ color: 'green' }}></div>
       { error && <div style={{ color: 'red' }}>{error}</div> }
     </>
   );

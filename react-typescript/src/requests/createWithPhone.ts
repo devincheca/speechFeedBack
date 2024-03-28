@@ -1,3 +1,4 @@
+// Helpers
 import { req } from '../helpers/req';
 
 // Types
@@ -16,7 +17,6 @@ export const createWithPhone = async (phone: PhoneNumber, Id: string) => {
       Item: {
         Action: POST_ACTIONS.CREATE_WITH_PHONE,
         PhoneNumber: phone.areaCode + phone.firstThree + phone.lastFour,
-        // update TTL with Pascal case TimeStamp
         TimeStamp: generateTimeStamp(),
         Id,
       },

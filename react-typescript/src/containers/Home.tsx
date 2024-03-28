@@ -4,8 +4,14 @@ import {
   VoteBullets,
 } from './index';
 
+// Containers
+import { FeedbackForm } from '../containers/FeedbackForm';
+
 // Constants
 import { NAV_PAGES } from '../constants';
+
+// Helpers
+import { getInboundFeedbackLink } from '../helpers/getIsFeedbackLinkInbound';
 
 export interface homeProps {
   onPageNav: (pageName: string) => void;
@@ -15,6 +21,9 @@ export default function Home(props: homeProps) {
 
   const { onPageNav } = props;
   const [isFeedbackShowing, setFeedbackShowing] = useState(true);
+  const [inboundFeedbackLink] = useState(getInboundFeedbackLink);
+
+  if (inboundFeedbackLink) return <FeedbackForm inboundFeedbackLink={inboundFeedbackLink} />
 
   const showFeedbackPage = (isFeedbackShowing: boolean) => setFeedbackShowing(isFeedbackShowing);
 
@@ -49,7 +58,7 @@ export default function Home(props: homeProps) {
               className="btn btn-secondary"
               id="feedbackButton"
               onClick={() => onPageNav('FeedbackTutorial')}>
-                Feedback Tutorial
+                { NAV_PAGES.FEEDBACK } Tutorial
             </button>
           </div>
         </div>
