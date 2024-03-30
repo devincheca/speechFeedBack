@@ -48,7 +48,7 @@ export default function Feedback() {
     if (isPhoneValid() && phone) {
       setIsLoading(true);
       await createWithPhone(phone, Id);
-      setLink(`https://ti-manager.com/feedback/${Id}`);
+      setLink(`https://ti-manager.com?feedbackId=${Id}`);
       setIsLoading(false);
       copyLink();
     } else {
