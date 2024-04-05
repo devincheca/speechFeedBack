@@ -53,6 +53,7 @@ export default function Home(props: homeProps) {
             </button>
           </div>
           <div className="vertical-margin text-right">
+            {/*
             <button
               type="button"
               className="btn btn-secondary"
@@ -60,6 +61,7 @@ export default function Home(props: homeProps) {
               onClick={() => onPageNav('FeedbackTutorial')}>
                 { NAV_PAGES.FEEDBACK } Tutorial
             </button>
+            */}
           </div>
         </div>
       }
