@@ -8,7 +8,8 @@ import './App.css';
 import {
   Banner,
   Feedback,
-  Home
+  Home,
+  Vote,
 } from './containers';
 
 // Constants
@@ -20,6 +21,7 @@ function App() {
   const currentPage = {
     [NAV_PAGES.HOME]: <Home onPageNav={setPage} />,
     [NAV_PAGES.FEEDBACK]: <Feedback />,
+    [NAV_PAGES.VOTE]: <Vote />,
   }[page];
 
   return (

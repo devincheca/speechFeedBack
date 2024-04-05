@@ -3,6 +3,7 @@ import Feedback from './Feedback';
 import FeedbackBullets from '../components/FeedbackBullets';
 import Home from './Home';
 import VoteBullets from '../components/VoteBullets';
+import Vote from './Vote';
 
 export {
   Banner,
@@ -10,4 +11,5 @@ export {
   FeedbackBullets,
   Home,
   VoteBullets,
+  Vote,
 };
