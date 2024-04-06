@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { v1 as uuidv1 } from 'uuid';
 
 // Requests
@@ -9,14 +9,13 @@ import {
   CopyButton,
   LoadingButton,
   PhoneNumberInput,
-  QrCode,
 } from '../components';
 
 // Types
 import { PhoneNumber } from '../types/PhoneNumber';
 
 // Helpers
-import { copyToClipboard } from '../helpers/copyToClipboard';
+import { copyToClipboard, getQrCode } from '../helpers';
 
 export default function Feedback() {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,12 +23,11 @@ export default function Feedback() {
   const [phone, setPhone] = useState<PhoneNumber>();
   const [error, setError] = useState('');
   const [link, setLink] = useState('');
-  const [qrCodeImageUrl] = useState('');
   const [Id] = useState(uuidv1());
   const [copyStatus, setCopyStatus] = useState('');
 
   const getLinkButton = useRef<HTMLButtonElement>(null);
-
+  const qrBox = useRef<HTMLCanvasElement>(null);
   const linkBox = useRef<HTMLInputElement>(null);
 
   const isPhoneValid = () => phone && parseInt(phone.areaCode) && parseInt(phone.firstThree) && parseInt(phone.lastFour);
@@ -43,6 +41,12 @@ export default function Feedback() {
 
     setTimeout(() => setCopyStatus(''), 3000);
   };
+
+  useEffect(() => {
+    if (qrBox && qrBox.current) {
+      getQrCode(qrBox.current, link);
+    }
+  }, [qrBox, link]);
 
   const getLink = async () => {
     if (isPhoneValid() && phone) {
@@ -88,7 +92,11 @@ export default function Feedback() {
           <div></div>
           { link && <CopyButton copy={() => copyLink()} copyStatus={copyStatus} /> }
         </div>
-        { qrCodeImageUrl && <QrCode qrCodeImageUrl={qrCodeImageUrl} /> }
+        { link && <div className="form-group text-center" id="qrCodeImage">
+            <div>For hybrid meetings:</div>
+            <canvas ref={qrBox}></canvas>
+          </div>
+        }
         <div className="form-group text-right" style={{ display: 'none' }}>
           { !isLoading && <button type="button" className="btn btn-primary">Send Test Message</button> }
           { isLoading && <LoadingButton /> }

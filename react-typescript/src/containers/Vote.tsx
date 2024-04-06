@@ -1,18 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 // Components
-import {
-  CopyButton,
-  // QrCode,
-} from '../components';
+import { CopyButton } from '../components';
 
 // Helpers
-import { copyToClipboard, getVotes } from '../helpers';
+import { copyToClipboard, getVotes, getQrCode } from '../helpers';
 
 export default function Vote(props: { Id: string }) {
-  // const [error, setError] = useState('');
-  // const [qrCodeImageUrl] = useState('');
   const Id = props.Id;
+
   const [link] = useState(`https://ti-manager.com?voteId=${Id}`);
   const [votes, setVotes] = useState<string[]>([]);
   const [copyStatus, setCopyStatus] = useState('');
@@ -22,6 +18,13 @@ export default function Vote(props: { Id: string }) {
   }, [Id]);
 
   const linkBox = useRef<HTMLInputElement>(null);
+  const qrBox = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (qrBox && qrBox.current) {
+      getQrCode(qrBox.current, link);
+    }
+  }, [qrBox, link]);
 
   const copyLink = () => {
     const result = copyToClipboard(linkBox);
@@ -33,7 +36,7 @@ export default function Vote(props: { Id: string }) {
     setTimeout(() => setCopyStatus(''), 3000);
   };
 
-  const votesView = votes.map(vote => <div>
+  const votesView = votes && votes.map(vote => <div>
     { vote }
   </div>);
 
@@ -50,13 +53,14 @@ export default function Vote(props: { Id: string }) {
           <div></div>
           { link && <CopyButton copy={() => copyLink()} copyStatus={copyStatus} /> }
         </div>
-        { votesView }
-        {/*
         <div className="form-group text-center" id="qrCodeImage">
           <div>For hybrid meetings:</div>
-          <div style="display: none;" id="qrUrl">{{ qrCode }}</div>
+          <canvas ref={qrBox}></canvas>
         </div>
-        */}
+        <div>
+          Votes will appear below:
+          { votesView }
+        </div>
       </div>
     </>
   );
