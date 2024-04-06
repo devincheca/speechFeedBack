@@ -22,8 +22,8 @@ export async function req({ data, endpoint = '' }: reqParams) {
   return response.json();
 }
 
-export async function GET({ endpoint = '' }: reqParams) {
-  const response = await fetch(RESTUrl + endpoint, {
+export async function getVotesPoll({ queryString }: { queryString: string }) {
+  const response = await fetch(`${RESTUrl}?${queryString}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -1,14 +1,16 @@
 import { copyToClipboard } from "./copyToClipboard";
 import { getInboundFeedbackLink } from "./getIsFeedbackLinkInbound";
 import { getInboundVoteLink } from "./getIsVoteLinkInbound";
-import { GET, req } from './req';
+import { getVotesPoll, req } from './req';
 import { generateTimeStamp } from "./timeStamp";
+import { getVotes } from "./getVotes";
 
 export {
   copyToClipboard,
   getInboundFeedbackLink,
   getInboundVoteLink,
-  GET,
+  getVotesPoll,
   req,
   generateTimeStamp,
+  getVotes,
 };
