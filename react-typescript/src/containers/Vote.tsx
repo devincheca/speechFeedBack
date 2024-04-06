@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { v1 as uuidv1 } from 'uuid';
 
 // Components
 import {
@@ -8,16 +7,17 @@ import {
 } from '../components';
 
 // Helpers
-import { copyToClipboard } from '../helpers/copyToClipboard';
+import { copyToClipboard, GET } from '../helpers';
 
-export default function Vote() {
+export default function Vote(props: { Id: string }) {
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState('');
   // const [qrCodeImageUrl] = useState('');
-  const [Id] = useState(uuidv1());
+  const Id = props.Id;
   const [link] = useState(`https://ti-manager.com?voteId=${Id}`);
   // so the backend POST endpoint needs to just post any votes sent with TTL
-  // then the polling GET endpoint needs to get them all filtered by the id
+  // then the polling GET endpoint needs to get them all filtered by the voteId
+  // this needs to tie into a useEffect GET({ voteId: Id });
   const [copyStatus, setCopyStatus] = useState('');
 
   const linkBox = useRef<HTMLInputElement>(null);

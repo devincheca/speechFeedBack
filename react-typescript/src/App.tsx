@@ -1,5 +1,5 @@
-// React 
 import React, { useState } from 'react';
+import { v1 as uuidv1 } from 'uuid';
 
 // CSS
 import './App.css';
@@ -17,11 +17,12 @@ import { NAV_PAGES } from './constants';
 
 function App() {
   const [page, setPage] = useState('Home');
+  const [Id] = useState(uuidv1());
 
   const currentPage = {
-    [NAV_PAGES.HOME]: <Home onPageNav={setPage} />,
+    [NAV_PAGES.HOME]: <Home onPageNav={setPage} Id={Id} />,
     [NAV_PAGES.FEEDBACK]: <Feedback />,
-    [NAV_PAGES.VOTE]: <Vote />,
+    [NAV_PAGES.VOTE]: <Vote Id={Id} />,
   }[page];
 
   return (

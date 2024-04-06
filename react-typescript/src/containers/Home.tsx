@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import {
-  FeedbackBullets,
-  VoteBullets,
-} from './index';
 
 // Containers
-import { FeedbackForm } from '../containers/FeedbackForm';
+import {
+  FeedbackBullets,
+  FeedbackForm,
+  VoteBullets,
+  VoteForm,
+} from './index';
+
 
 // Constants
 import { NAV_PAGES } from '../constants';
 
 // Helpers
 import { getInboundFeedbackLink } from '../helpers/getIsFeedbackLinkInbound';
+import { getInboundVoteLink } from '../helpers/getIsVoteLinkInbound';
 
 export interface homeProps {
   onPageNav: (pageName: string) => void;
+  Id: string,
 };
 
 export default function Home(props: homeProps) {
@@ -22,8 +26,10 @@ export default function Home(props: homeProps) {
   const { onPageNav } = props;
   const [isFeedbackShowing, setFeedbackShowing] = useState(true);
   const [inboundFeedbackLink] = useState(getInboundFeedbackLink);
+  const [inboundVoteLink] = useState(getInboundVoteLink);
 
   if (inboundFeedbackLink) return <FeedbackForm inboundFeedbackLink={inboundFeedbackLink} />
+  if (inboundVoteLink) return <VoteForm Id={props.Id} inboundVoteLink={inboundVoteLink} />
 
   const showFeedbackPage = (isFeedbackShowing: boolean) => setFeedbackShowing(isFeedbackShowing);
 
@@ -72,7 +78,6 @@ export default function Home(props: homeProps) {
             <button
               type="button"
               className="btn btn-primary"
-              id="feedbackButton"
               onClick={() => onPageNav('Vote')}>
                 Voting System
             </button>
