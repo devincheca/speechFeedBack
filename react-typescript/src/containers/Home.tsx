@@ -40,7 +40,7 @@ export default function Home(props: homeProps) {
     <>
       <ul className="nav">
         <li className="nav-item">
-          <button className={getFeedbackBtnClass()} style={{ cursor: 'pointer' }} onClick={() => onPageNav(NAV_PAGES.FEEDBACK)} id="feedbackNavLink">{ NAV_PAGES.FEEDBACK } </button>
+          <button className={getFeedbackBtnClass()} style={{ cursor: 'pointer' }} onClick={() => onPageNav(NAV_PAGES.FEEDBACK)} id="feedbackNavLink">Feedback (beta)</button>
         </li>
         <li className="nav-item">
           <button className={getVotingBtnClass()} style={{ cursor: 'pointer' }} onClick={() => showFeedbackPage(false)} id="voteNavLink">Voting</button>
