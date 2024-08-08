@@ -5,6 +5,7 @@ import { CopyButton } from '../components';
 
 // Helpers
 import { copyToClipboard, getVotes, getQrCode } from '../helpers';
+import { KEYS } from '../react-keys';
 
 export default function Vote(props: { Id: string }) {
   const Id = props.Id;
@@ -36,9 +37,7 @@ export default function Vote(props: { Id: string }) {
     setTimeout(() => setCopyStatus(''), 3000);
   };
 
-  const votesView = votes && votes.map(vote => <div>
-    { vote }
-  </div>);
+  const votesView = votes && votes.map((vote, i) => <div key={`${KEYS.VOTE_LIST}_${i}`}>{ vote }</div>);
 
   return (
     <>

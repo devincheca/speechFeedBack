@@ -41,7 +41,7 @@ export const VoteForm = (props: {
         <input className="form-control" ref={voteInput} autoFocus />
       </div>
       <div className="form-group text-right">
-        <button type="button" className="btn btn-primary" onClick={() => submitVote()}>Submit Vote</button>
+        { !isLoading && <button type="button" className="btn btn-primary" onClick={() => submitVote()}>Submit Vote</button> }
         { isLoading && <LoadingButton /> }
       </div>
     </div>
