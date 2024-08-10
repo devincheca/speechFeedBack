@@ -1,0 +1,119 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Mutation {
+  createTiVotes(input: CreateTiVotesInput!): TiVotes
+  deleteTiVotes(input: DeleteTiVotesInput!): TiVotes
+  updateTiVotes(input: UpdateTiVotesInput!): TiVotes
+}
+
+type Query {
+  getTiVotes(Id: String!): TiVotes
+  listTiVotes(filter: TableTiVotesFilterInput, limit: Int, nextToken: String): TiVotesConnection
+}
+
+type Subscription {
+  onCreateTiVotes(Id: String, VoteId: String): TiVotes @aws_subscribe(mutations : ["createTiVotes"])
+  onDeleteTiVotes(Id: String, VoteId: String): TiVotes @aws_subscribe(mutations : ["deleteTiVotes"])
+  onUpdateTiVotes(Id: String, VoteId: String): TiVotes @aws_subscribe(mutations : ["updateTiVotes"])
+}
+
+type TiVotes {
+  Id: String!
+  VoteId: String
+}
+
+type TiVotesConnection {
+  items: [TiVotes]
+  nextToken: String
+}
+
+input CreateTiVotesInput {
+  Id: String!
+  VoteId: String
+}
+
+input DeleteTiVotesInput {
+  Id: String!
+}
+
+input ModelSizeInput {
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input TableBooleanFilterInput {
+  attributeExists: Boolean
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableFloatFilterInput {
+  attributeExists: Boolean
+  between: [Float]
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+}
+
+input TableIDFilterInput {
+  attributeExists: Boolean
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+  size: ModelSizeInput
+}
+
+input TableIntFilterInput {
+  attributeExists: Boolean
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input TableStringFilterInput {
+  attributeExists: Boolean
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+  size: ModelSizeInput
+}
+
+input TableTiVotesFilterInput {
+  Id: TableStringFilterInput
+  VoteId: TableStringFilterInput
+}
+
+input UpdateTiVotesInput {
+  Id: String!
+  VoteId: String
+}
