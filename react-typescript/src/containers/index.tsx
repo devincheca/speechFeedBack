@@ -4,7 +4,7 @@ import FeedbackBullets from '../components/FeedbackBullets';
 import { FeedbackForm } from './FeedbackForm';
 import Home from './Home';
 import VoteBullets from '../components/VoteBullets';
-import Vote from './Vote';
+import Vote from './Vote/Vote';
 import { VoteForm } from './VoteForm';
 
 export {

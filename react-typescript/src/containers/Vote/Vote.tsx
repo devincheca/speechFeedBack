@@ -1,22 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useReducer } from 'react';
 
 // Components
-import { CopyButton } from '../components';
+import { CopyButton } from '../../components';
 
 // Helpers
-import { copyToClipboard, getVotes, getQrCode } from '../helpers';
-import { KEYS } from '../react-keys';
+import { copyToClipboard, getVotes, getQrCode } from '../../helpers';
+import { KEYS } from '../../react-keys';
+
+// Redux
+import reducer from './reducer';
+import ACTIONS from './actions';
 
 export default function Vote(props: { Id: string }) {
   const Id = props.Id;
 
   const [link] = useState(`https://ti-manager.com?voteId=${Id}`);
-  const [votes, setVotes] = useState<string[]>([]);
+  const [{ votes }, dispatch] = useReducer(reducer, { votes: [] });
   const [copyStatus, setCopyStatus] = useState('');
 
   useEffect(() => {
-    getVotes(Id, votes => setVotes(votes));
-  }, [Id]);
+    getVotes(Id, (vote: string) => dispatch({
+      type: ACTIONS.UPDATE_VOTES,
+      payload: { vote },
+    }));
+  }, []);
 
   const linkBox = useRef<HTMLInputElement>(null);
   const qrBox = useRef<HTMLCanvasElement>(null);
