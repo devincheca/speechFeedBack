@@ -1,14 +1,16 @@
-import { getVotesPoll } from "./req";
+// App Sync Amplify GraphQL Configuration
+import client from '../app-sync-amplify-configure';
 
-export const getVotes = async (voteId: string, callback: (votes: string[]) => void) => {
-  const polledVotes = await getVotesPoll({ queryString: `voteId=${voteId}` });
-  const { Items } = polledVotes;
+// GraphQL
+import * as subscriptions from '../graphql/subscriptions';
 
-  interface Vote {
-    Vote: string;
-  }
+export const getVotes = async (voteId: string, callback: (vote: string) => void) => {
+  const subscription: any = client
+    .graphql({ query: subscriptions.onCreateTiVotes })
 
-  callback(Items.map((vote: Vote) => vote.Vote));
-
-  setTimeout(() => getVotes(voteId, callback), 1000);
+  subscription
+    .subscribe({
+      next: ({ data }: any) => callback(data.onCreateTiVotes.Vote),
+      error: (error: any) => console.error(error),
+    });
 };
