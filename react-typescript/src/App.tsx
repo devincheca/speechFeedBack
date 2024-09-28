@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import { v1 as uuidv1 } from 'uuid';
 
 // CSS
@@ -15,8 +15,10 @@ import {
 // Constants
 import { NAV_PAGES } from './constants';
 
+export const BackButtonContext = createContext({ back: () => {}, page: NAV_PAGES.HOME });
+
 function App() {
-  const [page, setPage] = useState('Home');
+  const [page, setPage] = useState(NAV_PAGES.HOME);
   const [Id] = useState(uuidv1());
 
   const currentPage = {
@@ -25,11 +27,15 @@ function App() {
     [NAV_PAGES.VOTE]: <Vote Id={Id} />,
   }[page];
 
+  const back = useCallback(() => setPage(NAV_PAGES.HOME), [page]);
+
   return (
     <div className="App">
       <header className="App-header">
         <div className="App-header-div">
-          <Banner />
+          <BackButtonContext.Provider value={{ back, page }}>
+            <Banner />
+          </BackButtonContext.Provider>
           { currentPage }
         </div>
       </header>

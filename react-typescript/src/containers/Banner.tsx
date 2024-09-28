@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { BackButtonContext } from '../App';
+import { NAV_PAGES } from '../constants';
 
 export default function Banner() {
+  const { back, page } = useContext(BackButtonContext);
+
   return (
     <div className="topBarDiv" style={{ color: 'black', fontSize: '.75em' }}>
       <div>
-        <img
+        { page !== NAV_PAGES.HOME && <a href="#" onClick={back}> ← Back </a> }
+        { page === NAV_PAGES.HOME && <img
           alt="TI"
           style={{
             verticalAlign: 'middle',
@@ -12,7 +18,7 @@ export default function Banner() {
             width: '25px',
           }}
           src="https://localbz.co/Dreambuilders/logo.png"
-        />
+        /> }
       </div>
       <div style={{ textAlign: 'right' }}>Toastmasters Hybrid Meeting System</div>
     </div>
